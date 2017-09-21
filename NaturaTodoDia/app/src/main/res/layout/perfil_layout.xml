@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/dadosTab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/tab_active"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="@string/dados"
+            android:textAlignment="center"
+            android:textColor="#ff9105" />
+
+        <TextView
+            android:id="@+id/preferenciasTab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/tab"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="@string/preferencias"
+            android:textAlignment="center"
+            android:textColor="#d4892d" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/dadosLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabLayout"
+        android:padding="20dp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/dadosLblInfo1"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/dadosInfo1" />
+
+        <TextView
+            android:id="@+id/dadosInfo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@id/dadosLblInfo1"
+            android:text="info 1"/>
+        <EditText android:id="@+id/txtDadosInfo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/dadosLblInfo1"
+            android:hint="@string/dadosInfo1"
+            android:inputType="text"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/dadosLblInfo2"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dadosLblInfo1"
+            android:layout_marginTop="50dp"
+            android:text="@string/dadosInfo2"/>
+
+        <EditText android:id="@+id/txtDadosInfo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/dadosLblInfo2"
+            android:hint="@string/dadosInfo2"
+            android:inputType="text"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/dadosInfo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dadosLblInfo1"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_toEndOf="@id/dadosLblInfo2"
+            android:text="info 2" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/preferenciasLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabLayout"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/preferenciasLblInfo1"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/preferenciasInfo1" />
+
+        <TextView
+            android:id="@+id/preferenciasInfo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/preferenciasLblInfo1"
+            android:layout_marginTop="15dp"
+            android:text="info 1" />
+        <EditText
+            android:id="@+id/txtPreferenciasInfo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/preferenciasLblInfo1"
+            android:hint="@string/preferenciasInfo1"
+            android:inputType="text"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/preferenciasLblInfo2"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/preferenciasLblInfo1"
+            android:layout_marginTop="50dp"
+            android:text="@string/preferenciasInfo2" />
+
+        <TextView
+            android:id="@+id/preferenciasInfo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/preferenciasLblInfo1"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_toEndOf="@id/preferenciasLblInfo2"
+            android:text="info 2" />
+        <EditText
+            android:id="@+id/txtPreferenciasInfo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="85dp"
+            android:layout_toEndOf="@id/preferenciasLblInfo1"
+            android:hint="@string/preferenciasInfo2"
+            android:inputType="text"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_alignParentEnd="true"
+            android:src="@android:drawable/ic_menu_edit" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_alignParentEnd="true"
+            android:src="@android:drawable/ic_menu_save"
+            android:visibility="gone"/>
+
+        <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_toStartOf="@id/btnSave"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:backgroundTint="#ff0000"
+            android:visibility="gone"/>
+    </RelativeLayout>
+</RelativeLayout>

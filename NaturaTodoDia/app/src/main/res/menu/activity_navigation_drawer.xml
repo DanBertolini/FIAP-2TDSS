@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/perfil"
+            android:icon="@drawable/ic_menu_perfil"
+            android:title="Meu Perfil e Preferências" />
+        <item
+            android:id="@+id/conversation"
+            android:icon="@drawable/ic_menu_conversation"
+            android:title="Converse com a Nati" />
+        <item
+            android:id="@+id/eventos"
+            android:icon="@drawable/ic_menu_eventos"
+            android:title="Meus Eventos" />
+        <item
+            android:id="@+id/salvos"
+            android:icon="@drawable/ic_menu_salvos"
+            android:title="Favoritos" />
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/ic_menu_sobre"
+            android:title="Sobre a Nati" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_menu_sair"
+            android:title="Sair" />
+    </group>
+</menu>

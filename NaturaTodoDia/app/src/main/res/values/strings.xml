@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">NaturaTodoDia</string>
+    <string name="title_activity_navigation">Nati</string>
+    <string name="eventos_pendentes">Pendentes</string>
+    <string name="eventos_concluidos">Concluídos</string>
+    <string name="btnAvaliar">Avaliar Sugestão</string>
+
+    <string name="dados">Meus dados</string>
+    <string name="dadosInfo1">Meus dados Info 1</string>
+    <string name="dadosInfo2">Meus dados Info 2</string>
+    <string name="preferencias">Minhas Preferências</string>
+    <string name="preferenciasInfo1">Minhas Preferências Info 1</string>
+    <string name="preferenciasInfo2">Minhas Preferências Info 2</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
