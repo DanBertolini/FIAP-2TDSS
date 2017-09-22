@@ -7,27 +7,23 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataEspecialDAO extends SQLiteOpenHelper {
 
-    private static final int VERSAO  = 1;
     private static final String TABLE_DATA_ESPECIAL = "DATA_ESPECIAL";
-    private static final  String TABLE_PESSOA = "PESSOA";
-    private static final String DATABASE = "NATURA";
+    private static final String ID = "cd_data_especial";
+    private static final String DT_ESPECIAL = "dt_especial";
+    private static final String DS_DATA_ESPECIAL = "ds_data_especial";
 
-    public DataEspecialDAO(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-    }
-
-    public DataEspecialDAO(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
-        super(context, name, factory, version, errorHandler);
+    public DataEspecialDAO(Context context, String dbName, int dbVersion) {
+        super(context, dbName, null, dbVersion);
     }
 
     @Override
     public void onCreate(SQLiteDatabase database){
-        String createTableAluno =  "CREATE TABLE " + TABLE_DATA_ESPECIAL + "( "
-                + "cd_data_especial INTEGER PRIMARY KEY, "
-                + " cd_pessoa INTEGER,dt_especial DATETIME, ds_data_especial, " +
-                "FOREIGN KEY(cd_pessoa) REFERENCES "+ TABLE_PESSOA +" (cd_pessoa))";
+        String createTable =  "CREATE TABLE " + TABLE_DATA_ESPECIAL + "( "
+                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + DT_ESPECIAL + " DATETIME, "
+                + DS_DATA_ESPECIAL + " TEXT)";
 
-        database.execSQL(createTableAluno);
+        database.execSQL(createTable);
     }
 
     @Override

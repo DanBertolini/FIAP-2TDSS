@@ -7,28 +7,29 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class EventoDAO extends SQLiteOpenHelper {
 
-    private static final int VERSAO  = 1;
     private static final String TABLE_EVENTO = "EVENTO";
-    private static final  String TABLE_PESSOA = "PESSOA";
-    private static final String DATABASE = "NATURA";
+    private static final String ID = "cd_evento";
+    private static final String DT_EVENTO = "dt_evento";
+    private static final String DS_TIPO = "ds_tipo";
+    private static final String DS_ESTACAO = "ds_estacao";
+    private static final String DS_PERIODO = "ds_periodo";
+    private static final String DS_EVENTO = "ds_evento";
 
-    public EventoDAO(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-    }
-
-    public EventoDAO(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
-        super(context, name, factory, version, errorHandler);
+    public EventoDAO(Context context, String dbName, int dbVersion) {
+        super(context, dbName, null, dbVersion);
     }
 
     @Override
     public void onCreate(SQLiteDatabase database){
-        String createTableAluno =  "CREATE TABLE " + TABLE_EVENTO + "( "
-                + "cd_evento INTEGER PRIMARY KEY, "
-                + " cd_pessoa INTEGER,dt_evento DATETIME, ds_tipo TEXT, "
-                + "ds_estacao TEXT, ds_periodo TEXT, ds_evento TEXT" +
-                "FOREIGN KEY(cd_pessoa) REFERENCES "+ TABLE_PESSOA +" (cd_pessoa))";
+        String createTable =  "CREATE TABLE " + TABLE_EVENTO + "( "
+                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + DT_EVENTO + " DATETIME, "
+                + DS_TIPO + " TEXT, "
+                + DS_ESTACAO + " TEXT, "
+                + DS_PERIODO + " TEXT, "
+                + DS_EVENTO + " TEXT)";
 
-        database.execSQL(createTableAluno);
+        database.execSQL(createTable);
     }
 
     @Override
