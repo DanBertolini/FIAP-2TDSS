@@ -42,4 +42,38 @@ public class PessoaDAO extends SQLiteOpenHelper {
         onCreate(database);
     }
 
+    public String getDadosPessoa(){
+        /*
+        * String select =  "SELECT p.nome, p.codPessoa " +
+                "FROM CREDENCIAL as c INNER JOIN  PESSOA as p ON p.codCredencial = c.codCredencial" +
+                " WHERE c.nmUsuario = '" + login+"'";
+
+        Cursor cursor = getReadableDatabase().rawQuery(select, null);
+
+        try{
+
+            while (cursor.moveToNext()){
+
+
+                professor.setNome(cursor.getString(0));
+                professor.setCdPessoa(cursor.getInt(1));
+
+            }
+
+        }catch(Exception e){
+            throw e;
+        }
+        finally{
+
+            cursor.close();
+        }
+        *
+        * */
+        return "";
+    }
+
+    public void atualizaCadastro(String pessoa){
+
+    }
+
 }

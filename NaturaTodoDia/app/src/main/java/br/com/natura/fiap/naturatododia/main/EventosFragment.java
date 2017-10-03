@@ -2,6 +2,7 @@ package br.com.natura.fiap.naturatododia.main;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
@@ -14,13 +15,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.natura.fiap.naturatododia.R;
+import br.com.natura.fiap.naturatododia.dao.DAO;
+import br.com.natura.fiap.naturatododia.dao.EventoDAO;
 
 public class EventosFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener{
     ListView listEventos;
-    ArrayList<String> eventosPendentes;
-    ArrayList<String> eventosConcluidos;
+    List<String> eventosPendentes;
+    List<String> eventosConcluidos;
     ArrayAdapter<String> eventosPendentesAdp;
     ArrayAdapter<String> eventosConcluidosAdp;
 
@@ -39,10 +43,8 @@ public class EventosFragment extends Fragment implements View.OnClickListener, A
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.eventos_layout, container, false);
 
-        eventosPendentes = new ArrayList<String>();
-        eventosPendentes.add("Evento Pendente 1");
-        eventosConcluidos = new ArrayList<String>();
-        eventosConcluidos.add("Evento Concluído 1");
+        eventosPendentes = getEventos(true, v.getContext());
+        eventosConcluidos = getEventos(false, v.getContext());
 
         listEventos = (ListView) v.findViewById(R.id.listEventos);
         eventosPendentesAdp = new ArrayAdapter<String>(v.getContext(),
@@ -97,5 +99,14 @@ public class EventosFragment extends Fragment implements View.OnClickListener, A
         ft.replace(R.id.frameNavigate, sugestsFragment);
         ft.addToBackStack(null);
         ft.commit();
+    }
+
+    private List<String> getEventos(boolean pendente, Context ctx){
+        EventoDAO dao = new DAO(ctx).getEventoDAO();
+        if(pendente){
+            return dao.buscarEventosPendentes();
+        }else{
+            return dao.buscarEventosConcluidos();
+        }
     }
 }

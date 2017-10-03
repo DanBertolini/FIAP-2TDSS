@@ -2,6 +2,7 @@ package br.com.natura.fiap.naturatododia.main;
 
 
 import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,25 +14,37 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import br.com.natura.fiap.naturatododia.R;
+import br.com.natura.fiap.naturatododia.dao.DAO;
+import br.com.natura.fiap.naturatododia.dao.PessoaDAO;
+import br.com.natura.fiap.naturatododia.dao.PreferenciasDAO;
 
 public class PerfilFragment extends Fragment implements View.OnClickListener {
     RelativeLayout dadosLayout;
     TextView dadosTab;
-    TextView dadosInfo1;
-    TextView dadosInfo2;
-    EditText txtDadosInfo1;
-    EditText txtDadosInfo2;
+    TextView txtNome;
+    EditText edTxtNome;
+    TextView txtDataNascimento;
+    TextView txtSexo;
+    EditText edTxtSexo;
+    TextView txtCorPele;
+    EditText edTxtCorPele;
+    TextView txtTipoPele;
+    EditText edTxtTipoPele;
+    TextView txtTipoCabelo;
+    EditText edTxtTipoCabelo;
 
     RelativeLayout preferenciasLayout;
     TextView preferenciasTab;
-    TextView preferenciasInfo1;
-    TextView preferenciasInfo2;
-    EditText txtPreferenciasInfo1;
-    EditText txtPreferenciasInfo2;
+    TextView txtTomFavorito;
+    EditText edTxtTomFavorito;
+    TextView txtFragFavorita;
+    EditText edTxtFragFavorita;
 
     FloatingActionButton btnEdit;
     FloatingActionButton btnSave;
     FloatingActionButton btnCancel;
+
+    Context ctx;
 
     boolean isMeusDados = true;
 
@@ -46,22 +59,33 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.perfil_layout, container, false);
+        ctx = v.getContext();
+
+        String pessoa = getDadosPessoa();
+        String preferencias = getPreferenciasPessoa();
 
         dadosLayout = (RelativeLayout) v.findViewById(R.id.dadosLayout);
         dadosTab = (TextView) v.findViewById(R.id.dadosTab);
         dadosTab.setOnClickListener(this);
-        dadosInfo1 = (TextView) v.findViewById(R.id.dadosInfo1);
-        dadosInfo2 = (TextView) v.findViewById(R.id.dadosInfo2);
-        txtDadosInfo1 = (EditText) v.findViewById(R.id.txtDadosInfo1);
-        txtDadosInfo2 = (EditText) v.findViewById(R.id.txtDadosInfo2);
+        txtNome = (TextView) v.findViewById(R.id.txtNome);
+        edTxtNome = (EditText) v.findViewById(R.id.edTxtNome);
+        txtDataNascimento = (TextView) v.findViewById(R.id.txtDataNascimento);
+        txtSexo = (TextView) v.findViewById(R.id.txtSexo);
+        edTxtSexo = (EditText) v.findViewById(R.id.edTxtSexo);
+        txtCorPele = (TextView) v.findViewById(R.id.txtCorPele);
+        edTxtCorPele = (EditText) v.findViewById(R.id.edTxtCorPele);
+        txtTipoPele = (TextView) v.findViewById(R.id.txtTipoPele);
+        edTxtTipoPele = (EditText) v.findViewById(R.id.edTxtTipoPele);
+        txtTipoCabelo = (TextView) v.findViewById(R.id.txtTipoCabelo);
+        edTxtTipoCabelo = (EditText) v.findViewById(R.id.edTxtTipoCabelo);
 
         preferenciasLayout = (RelativeLayout) v.findViewById(R.id.preferenciasLayout);
         preferenciasTab = (TextView) v.findViewById(R.id.preferenciasTab);
         preferenciasTab.setOnClickListener(this);
-        preferenciasInfo1 = (TextView) v.findViewById(R.id.preferenciasInfo1);
-        preferenciasInfo2 = (TextView) v.findViewById(R.id.preferenciasInfo2);
-        txtPreferenciasInfo1 = (EditText) v.findViewById(R.id.txtPreferenciasInfo1);
-        txtPreferenciasInfo2 = (EditText) v.findViewById(R.id.txtPreferenciasInfo2);
+        txtTomFavorito = (TextView) v.findViewById(R.id.txtTomFavorito);
+        edTxtTomFavorito = (EditText) v.findViewById(R.id.edTxtTomFavorito);
+        txtFragFavorita = (TextView) v.findViewById(R.id.txtFragFavorita);
+        edTxtFragFavorita = (EditText) v.findViewById(R.id.edTxtFragFavorita);
 
         btnEdit = (FloatingActionButton) v.findViewById(R.id.btnEdit);
         btnEdit.setOnClickListener(this);
@@ -106,15 +130,22 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     }
 
     private void defaultView() {
-        dadosInfo1.setVisibility(View.VISIBLE);
-        dadosInfo2.setVisibility(View.VISIBLE);
-        txtDadosInfo1.setVisibility(View.GONE);
-        txtDadosInfo2.setVisibility(View.GONE);
+        txtNome.setVisibility(View.VISIBLE);
+        edTxtNome.setVisibility(View.GONE);
+        txtDataNascimento.setVisibility(View.VISIBLE);
+        txtSexo.setVisibility(View.VISIBLE);
+        edTxtSexo.setVisibility(View.GONE);
+        txtCorPele.setVisibility(View.VISIBLE);
+        edTxtCorPele.setVisibility(View.GONE);
+        txtTipoPele.setVisibility(View.VISIBLE);
+        edTxtTipoPele.setVisibility(View.GONE);
+        txtTipoCabelo.setVisibility(View.VISIBLE);
+        edTxtTipoCabelo.setVisibility(View.GONE);
 
-        preferenciasInfo1.setVisibility(View.VISIBLE);
-        preferenciasInfo2.setVisibility(View.VISIBLE);
-        txtPreferenciasInfo1.setVisibility(View.GONE);
-        txtPreferenciasInfo2.setVisibility(View.GONE);
+        txtTomFavorito.setVisibility(View.VISIBLE);
+        edTxtTomFavorito.setVisibility(View.GONE);
+        txtFragFavorita.setVisibility(View.VISIBLE);
+        edTxtFragFavorita.setVisibility(View.GONE);
 
         btnEdit.setVisibility(View.VISIBLE);
         btnSave.setVisibility(View.GONE);
@@ -123,19 +154,32 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
 
     private void setToEdit(){
         if(isMeusDados){
-            dadosInfo1.setVisibility(View.GONE);
-            dadosInfo2.setVisibility(View.GONE);
-            txtDadosInfo1.setVisibility(View.VISIBLE);
-            txtDadosInfo1.setText(dadosInfo1.getText());
-            txtDadosInfo2.setVisibility(View.VISIBLE);
-            txtDadosInfo2.setText(dadosInfo2.getText());
+            txtNome.setVisibility(View.GONE);
+            edTxtNome.setVisibility(View.VISIBLE);
+            edTxtNome.setText(txtNome.getText());
+
+            txtSexo.setVisibility(View.GONE);
+            edTxtSexo.setVisibility(View.VISIBLE);
+            edTxtSexo.setText(txtSexo.getText());
+
+            txtCorPele.setVisibility(View.GONE);
+            edTxtCorPele.setVisibility(View.VISIBLE);
+            edTxtCorPele.setText(txtCorPele.getText());
+
+            txtTipoPele.setVisibility(View.GONE);
+            edTxtTipoPele.setVisibility(View.VISIBLE);
+            edTxtTipoPele.setText(txtTipoPele.getText());
+
+            txtTipoCabelo.setVisibility(View.GONE);
+            edTxtTipoCabelo.setVisibility(View.VISIBLE);
+            edTxtTipoCabelo.setText(txtTipoCabelo.getText());
         }else{
-            preferenciasInfo1.setVisibility(View.GONE);
-            preferenciasInfo2.setVisibility(View.GONE);
-            txtPreferenciasInfo1.setVisibility(View.VISIBLE);
-            txtPreferenciasInfo1.setText(preferenciasInfo1.getText());
-            txtPreferenciasInfo2.setVisibility(View.VISIBLE);
-            txtPreferenciasInfo2.setText(preferenciasInfo2.getText());
+            txtTomFavorito.setVisibility(View.GONE);
+            edTxtTomFavorito.setVisibility(View.VISIBLE);
+            edTxtTomFavorito.setText(txtTomFavorito.getText());
+            txtFragFavorita.setVisibility(View.GONE);
+            edTxtFragFavorita.setVisibility(View.VISIBLE);
+            edTxtFragFavorita.setText(txtFragFavorita.getText());
         }
 
         btnEdit.setVisibility(View.GONE);
@@ -144,9 +188,28 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     }
 
     private void saveData(){
-        dadosInfo1.setText(txtDadosInfo1.getText());
-        dadosInfo2.setText(txtDadosInfo2.getText());
-        preferenciasInfo1.setText(txtPreferenciasInfo1.getText());
-        preferenciasInfo2.setText(txtPreferenciasInfo2.getText());
+        txtNome.setText(edTxtNome.getText());
+        txtSexo.setText(edTxtSexo.getText());
+        txtCorPele.setText(edTxtCorPele.getText());
+        txtTipoPele.setText(edTxtTipoPele.getText());
+        txtTipoCabelo.setText(edTxtTipoCabelo.getText());
+
+        txtTomFavorito.setText(edTxtTomFavorito.getText());
+        txtFragFavorita.setText(edTxtFragFavorita.getText());
+
+        PessoaDAO dao = new DAO(ctx).getPessoaDAO();
+        dao.atualizaCadastro("");
+        PreferenciasDAO dao2 = new DAO(ctx).getPreferenciaDAO();
+        dao2.atualizaPreferencias("");
+    }
+
+    private String getDadosPessoa(){
+        PessoaDAO dao = new DAO(ctx).getPessoaDAO();
+        return dao.getDadosPessoa();
+    }
+
+    private String getPreferenciasPessoa(){
+        PreferenciasDAO dao = new DAO(ctx).getPreferenciaDAO();
+        return dao.getPreferenciasPessoa();
     }
 }

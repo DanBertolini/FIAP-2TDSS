@@ -5,6 +5,9 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProdutoDAO extends SQLiteOpenHelper {
 
     private static final String TABLE_PRODUTO = "PRODUTO";
@@ -50,5 +53,13 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         database.execSQL(drop);
 
         onCreate(database);
+    }
+
+    public String buscarProduto(int id){
+        return "";
+    }
+
+    public List<String> buscarProdutosPorSugestao(int idSugestao){
+        return new ArrayList<String>();
     }
 }

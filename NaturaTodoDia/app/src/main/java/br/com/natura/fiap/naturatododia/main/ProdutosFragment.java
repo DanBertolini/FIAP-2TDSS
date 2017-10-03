@@ -2,6 +2,7 @@ package br.com.natura.fiap.naturatododia.main;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
@@ -16,8 +17,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.natura.fiap.naturatododia.R;
+import br.com.natura.fiap.naturatododia.dao.DAO;
+import br.com.natura.fiap.naturatododia.dao.ProdutoDAO;
 import br.com.natura.fiap.naturatododia.utils.InputResults;
 import br.com.natura.fiap.naturatododia.utils.NaturaDialog;
 
@@ -59,18 +63,7 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
         btnUnsave.setOnClickListener(this);
 
         produtos = new ArrayList<String>();
-        produtos.add("Produto 1");
-        produtos.add("Produto 2");
-        produtos.add("Produto 3");
-        produtos.add("Produto 4");
-        produtos.add("Produto 5");
-        produtos.add("Produto 6");
-        produtos.add("Produto 7");
-        produtos.add("Produto 8");
-        produtos.add("Produto 9");
-        produtos.add("Produto 10");
-        produtos.add("Produto 11");
-        produtos.add("Produto 12");
+
         produtosAdp = new ArrayAdapter<String>(v.getContext(),
                 android.R.layout.simple_list_item_1,
                 produtos);
@@ -104,6 +97,7 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
         ProdutoDetailFragment prodFragment = new ProdutoDetailFragment();
         Bundle arguments = new Bundle();
         arguments.putString("prodName", ((AppCompatTextView) view).getText().toString());
+        arguments.putInt("idProduto", 0);
         prodFragment.setArguments(arguments);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -133,5 +127,10 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
                 btnSave.setVisibility(View.VISIBLE);
             }
         };
+    }
+
+    private List<String> listarProdutosSugestao(int idSugestao, Context ctx){
+        ProdutoDAO dao = new DAO(ctx).getProdutoDAO();
+        return dao.buscarProdutosPorSugestao(idSugestao);
     }
 }

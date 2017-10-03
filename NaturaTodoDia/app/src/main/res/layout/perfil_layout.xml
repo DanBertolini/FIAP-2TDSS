@@ -44,56 +44,156 @@
         android:visibility="visible">
 
         <TextView
-            android:id="@+id/dadosLblInfo1"
+            android:id="@+id/lblNome"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="@string/dadosInfo1" />
+            android:text="Nome" />
 
         <TextView
-            android:id="@+id/dadosInfo1"
+            android:id="@+id/txtNome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
-            android:layout_toEndOf="@id/dadosLblInfo1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
             android:text="info 1"/>
-        <EditText android:id="@+id/txtDadosInfo1"
+        <EditText android:id="@+id/edTxtNome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/dadosLblInfo1"
-            android:hint="@string/dadosInfo1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:hint="Nome"
             android:inputType="text"
             android:visibility="gone"/>
 
         <TextView
-            android:id="@+id/dadosLblInfo2"
+            android:id="@+id/lblDataNascimento"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dadosLblInfo1"
-            android:layout_marginTop="50dp"
-            android:text="@string/dadosInfo2"/>
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/lblNome"
+            android:text="Data de Nascimento" />
 
-        <EditText android:id="@+id/txtDadosInfo2"
+        <TextView
+            android:id="@+id/txtDataNascimento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="65dp"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/dadosLblInfo2"
-            android:hint="@string/dadosInfo2"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:layout_below="@id/txtNome"
+            android:text="info 2"/>
+
+        <TextView
+            android:id="@+id/lblSexo"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/lblDataNascimento"
+            android:text="Sexo" />
+
+        <TextView
+            android:id="@+id/txtSexo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:layout_below="@id/txtDataNascimento"
+            android:text="info 3"/>
+
+        <EditText android:id="@+id/edTxtSexo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:hint="Sexo"
+            android:layout_below="@id/txtDataNascimento"
             android:inputType="text"
             android:visibility="gone"/>
 
         <TextView
-            android:id="@+id/dadosInfo2"
+            android:id="@+id/lblCorPele"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/lblSexo"
+            android:text="Cor da Pele" />
+
+        <TextView
+            android:id="@+id/txtCorPele"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dadosLblInfo1"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
-            android:layout_toEndOf="@id/dadosLblInfo2"
-            android:text="info 2" />
+            android:layout_marginTop="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:layout_below="@id/txtSexo"
+            android:text="info 4"/>
+        <EditText android:id="@+id/edTxtCorPele"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:layout_below="@id/txtSexo"
+            android:hint="Cor da Pele"
+            android:inputType="text"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/lblTipoPele"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/lblCorPele"
+            android:text="Tipo de Pele" />
+
+        <TextView
+            android:id="@+id/txtTipoPele"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:layout_below="@id/txtCorPele"
+            android:text="info 5"/>
+        <EditText android:id="@+id/edTxtTipoPele"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:layout_below="@id/txtCorPele"
+            android:hint="Tipo de Pele"
+            android:inputType="text"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/lblTipoCabelo"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/lblTipoPele"
+            android:text="Tipo de Cabelo" />
+
+        <TextView
+            android:id="@+id/txtTipoCabelo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:layout_below="@id/txtTipoPele"
+            android:text="info 6"/>
+        <EditText android:id="@+id/edTxtTipoCabelo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:layout_below="@id/txtTipoPele"
+            android:hint="Cor da Pele"
+            android:inputType="text"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -105,55 +205,56 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/preferenciasLblInfo1"
+            android:id="@+id/lblTomFavorito"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="@string/preferenciasInfo1" />
+            android:text="Tonalidade Favorita" />
 
         <TextView
-            android:id="@+id/preferenciasInfo1"
+            android:id="@+id/txtTomFavorito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/preferenciasLblInfo1"
             android:layout_marginTop="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
             android:text="info 1" />
         <EditText
-            android:id="@+id/txtPreferenciasInfo1"
+            android:id="@+id/edTxtTomFavorito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/preferenciasLblInfo1"
-            android:hint="@string/preferenciasInfo1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:hint="Tonalidade Favorita"
             android:inputType="text"
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/preferenciasLblInfo2"
+            android:id="@+id/lblFragFavorita"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/preferenciasLblInfo1"
+            android:layout_below="@id/lblTomFavorito"
             android:layout_marginTop="50dp"
-            android:text="@string/preferenciasInfo2" />
+            android:text="Fragância Favorita" />
 
         <TextView
-            android:id="@+id/preferenciasInfo2"
+            android:id="@+id/txtFragFavorita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/preferenciasLblInfo1"
-            android:layout_marginStart="20dp"
+            android:layout_below="@id/txtTomFavorito"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
             android:layout_marginTop="50dp"
-            android:layout_toEndOf="@id/preferenciasLblInfo2"
             android:text="info 2" />
         <EditText
-            android:id="@+id/txtPreferenciasInfo2"
+            android:id="@+id/edTxtFragFavorita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="85dp"
-            android:layout_toEndOf="@id/preferenciasLblInfo1"
-            android:hint="@string/preferenciasInfo2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="150dp"
+            android:layout_marginTop="50dp"
+            android:layout_below="@id/txtTomFavorito"
+            android:hint="Fragância Favorita"
             android:inputType="text"
             android:visibility="gone"/>
     </RelativeLayout>

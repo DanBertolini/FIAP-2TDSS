@@ -5,6 +5,9 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SugestaoDAO extends SQLiteOpenHelper {
 
     private static final String TABLE_SUGESTAO = "SUGESTAO";
@@ -51,6 +54,14 @@ public class SugestaoDAO extends SQLiteOpenHelper {
         database.execSQL(drop2);
 
         onCreate(database);
+    }
+
+    public List<String> buscarSugestoesPorEvento(int idEvento){
+        return new ArrayList<>();
+    }
+
+    public List<String> buscarSugestoesSalvas(){
+        return new ArrayList<>();
     }
 
 }
