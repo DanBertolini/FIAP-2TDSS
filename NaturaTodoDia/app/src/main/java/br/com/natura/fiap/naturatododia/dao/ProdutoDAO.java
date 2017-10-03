@@ -18,6 +18,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     private static final String DS_LINK = "ds_link";
     private static final String VL_FPS = "vl_fps";
     private static final String HAS_BRILHO = "has_brilho";
+    private static final String VL_PRECO = "vl_preco";
 
     public ProdutoDAO(Context context, String dbName, int dbVersion) {
         super(context, dbName, null, dbVersion);
@@ -35,7 +36,8 @@ public class ProdutoDAO extends SQLiteOpenHelper {
                 + FL_IMAGEM + " BLOB, "
                 + DS_LINK + " TEXT, "
                 + VL_FPS + " INTEGER, "
-                + HAS_BRILHO + " INTEGER DEFAULT 0)";
+                + HAS_BRILHO + " INTEGER DEFAULT 0,"
+                + VL_PRECO + "REAL)";
 
         database.execSQL(createTable);
     }

@@ -61,9 +61,7 @@ public class DAO extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int versaoantiga, int versaonova) {
-
-
-
+        onCreate(database);
     }
 
     public void iniciaTabelas(){

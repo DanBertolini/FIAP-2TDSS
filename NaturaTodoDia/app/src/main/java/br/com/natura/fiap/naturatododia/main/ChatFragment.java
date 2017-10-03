@@ -44,9 +44,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Text
         btnSendMsg = (ImageButton) v.findViewById(R.id.btnSendMsg);
         btnSendMsg.setOnClickListener(this);
 
-        msgsAdapter.add(new ChatMessage("Olá", true));
-        msgsAdapter.add(new ChatMessage("Teste", true));
-        msgsAdapter.add(new ChatMessage("Olá", false));
+        //msgsAdapter.add(new ChatMessage("Olá", true));
+        //msgsAdapter.add(new ChatMessage("Teste", true));
+        //msgsAdapter.add(new ChatMessage("Olá", false));
 
         return v;
     }
