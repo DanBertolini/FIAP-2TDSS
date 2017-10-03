@@ -1,9 +1,10 @@
+var http = require('http');
 var express = require('express');
 var app = express();
 var server = http.createServer(app);
-var produtos = require("assets/produtos.json");
+var produtos = require("./assets/produtos.json");
 
-app.get('/produtos', function (request, response) {
+server.get('/produtos', function (request, response) {
     response.writeHead(200, { 'Content-Type': 'application/json' });
     response.end(produtos);
 });
