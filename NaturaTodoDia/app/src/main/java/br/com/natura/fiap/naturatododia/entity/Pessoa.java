@@ -1,7 +1,11 @@
 package br.com.natura.fiap.naturatododia.entity;
 
-/**
- * Created by Daniel on 03/10/2017.
- */
 public class Pessoa {
+    private int id;
+    private String nome;
+    private Date dtNasci;
+    private String sexo;
+    private String corPele;
+    private String tipoPele;
+    private String tipoCabelo;
 }

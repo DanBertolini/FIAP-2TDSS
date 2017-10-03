@@ -1,7 +1,10 @@
 package br.com.natura.fiap.naturatododia.entity;
 
-/**
- * Created by Daniel on 03/10/2017.
- */
 public class Preferencia {
+    private int id;
+    private String nome;
+    private String tomFavorito;
+    private String fragFavorita;
+    private Pessoa pessoa;
+
 }

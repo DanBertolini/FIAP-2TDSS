@@ -1,7 +1,9 @@
 package br.com.natura.fiap.naturatododia.entity;
 
-/**
- * Created by Daniel on 03/10/2017.
- */
 public class Sugestao {
+    private int id;
+    private String nome;
+    private boolean Salvo;
+    private Evento evento;
+    private List<Produto> produtos;
 }

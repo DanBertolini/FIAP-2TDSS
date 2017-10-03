@@ -1,7 +1,19 @@
 package br.com.natura.fiap.naturatododia.entity;
 
-/**
- * Created by Daniel on 03/10/2017.
- */
+
 public class Evento {
+    private int id;
+    private String nome;
+    private Date nome;
+    private String tipo;
+    private String estacao;
+    private String periodo;
+    private String descricao;
+    private Pessoa pessoa;
+
+    @Override
+    public String toString(){
+        return this.nome;
+    }
+
 }
