@@ -12,6 +12,7 @@ public class DataEspecialDAO extends SQLiteOpenHelper {
     private static final String DT_ESPECIAL = "dt_especial";
     private static final String DS_DATA_ESPECIAL = "ds_data_especial";
 
+
     public DataEspecialDAO(Context context, String dbName, int dbVersion) {
         super(context, dbName, null, dbVersion);
     }

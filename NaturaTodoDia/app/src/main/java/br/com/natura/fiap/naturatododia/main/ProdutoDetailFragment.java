@@ -8,9 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import br.com.natura.fiap.naturatododia.R;
 
 public class ProdutoDetailFragment extends Fragment{
+
+    TextView txtNome;
+    TextView txtTipoProd;
+    TextView txtCores;
+    TextView txtTom;
+    TextView txtFPS;
+    TextView txtBrilho;
+    TextView txtLink;
 
     public ProdutoDetailFragment() {
     }

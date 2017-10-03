@@ -9,6 +9,7 @@ public class EventoDAO extends SQLiteOpenHelper {
 
     private static final String TABLE_EVENTO = "EVENTO";
     private static final String ID = "cd_evento";
+    private static final String NM_EVENTO = "nm_evento";
     private static final String DT_EVENTO = "dt_evento";
     private static final String DS_TIPO = "ds_tipo";
     private static final String DS_ESTACAO = "ds_estacao";
@@ -23,6 +24,7 @@ public class EventoDAO extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database){
         String createTable =  "CREATE TABLE " + TABLE_EVENTO + "( "
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + NM_EVENTO + " TEXT, "
                 + DT_EVENTO + " DATETIME, "
                 + DS_TIPO + " TEXT, "
                 + DS_ESTACAO + " TEXT, "
@@ -38,6 +40,10 @@ public class EventoDAO extends SQLiteOpenHelper {
         database.execSQL(drop);
 
         onCreate(database);
+    }
+
+    public String buscarEvento(int id){
+        return "";
     }
 
 }

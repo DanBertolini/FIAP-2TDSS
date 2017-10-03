@@ -133,19 +133,36 @@
                 android:layout_alignParentEnd="true"/>
 
             <TextView
+                android:id="@+id/lblPreco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Link"
+                android:layout_marginTop="50dp"
+                android:layout_below="@id/lblBrilho"/>
+            <TextView
+                android:id="@+id/txtPreco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="info 7"
+                android:layout_marginTop="50dp"
+                android:layout_below="@id/txtBrilho"
+                android:layout_marginEnd="100dp"
+                android:layout_alignParentEnd="true"/>
+
+            <TextView
                 android:id="@+id/lblDescricao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Link"
                 android:layout_marginTop="50dp"
-                android:layout_below="@id/lblLink"/>
+                android:layout_below="@id/lblPreco"/>
             <TextView
                 android:id="@+id/txtDescricao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="info 7"
                 android:layout_marginTop="50dp"
-                android:layout_below="@id/txtLink"
+                android:layout_below="@id/txtPreco"
                 android:layout_marginEnd="100dp"
                 android:layout_alignParentEnd="true"/>
 

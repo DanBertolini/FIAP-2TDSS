@@ -27,7 +27,6 @@ public class EventosFragment extends Fragment implements View.OnClickListener, A
     TextView evtPendentes;
     TextView evtConcluidos;
 
-    boolean eventoConcluido = false;
     public EventosFragment() {
     }
 
@@ -70,11 +69,9 @@ public class EventosFragment extends Fragment implements View.OnClickListener, A
         if(v.getId() == R.id.evtPendentes){
             listEventos.setAdapter(eventosPendentesAdp);
             setSelectedTab(evtConcluidos, evtPendentes);
-            eventoConcluido = false;
         }else if(v.getId() == R.id.evtConcluidos){
             listEventos.setAdapter(eventosConcluidosAdp);
             setSelectedTab(evtPendentes, evtConcluidos);
-            eventoConcluido = true;
         }
     }
 
@@ -92,7 +89,7 @@ public class EventosFragment extends Fragment implements View.OnClickListener, A
         SugestoesFragment sugestsFragment = new SugestoesFragment();
         Bundle arguments = new Bundle();
         arguments.putString("evtName", ((AppCompatTextView) view).getText().toString());
-        arguments.putBoolean("isConcluido", eventoConcluido);
+        arguments.putInt("idEvento", 0);
         sugestsFragment.setArguments(arguments);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();

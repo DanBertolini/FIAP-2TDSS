@@ -70,4 +70,28 @@ public class DAO extends SQLiteOpenHelper {
 
         onCreate(database);
     }
+
+    public DataEspecialDAO getDataEspecialDAO(){
+        return new DataEspecialDAO(this.context, DATABASE, VERSAO);
+    }
+
+    public EventoDAO getEventoDAO(){
+        return new EventoDAO(this.context, DATABASE, VERSAO);
+    }
+
+    public PessoaDAO getPessoaDAO(){
+        return new PessoaDAO(this.context, DATABASE, VERSAO);
+    }
+
+    public PreferenciasDAO getPreferenciaDAO(){
+        return new PreferenciasDAO(this.context, DATABASE, VERSAO);
+    }
+
+    public ProdutoDAO getProdutoDAO(){
+        return new ProdutoDAO(this.context, DATABASE, VERSAO);
+    }
+
+    public SugestaoDAO getSugestaoDAO(){
+        return new SugestaoDAO(this.context, DATABASE, VERSAO);
+    }
 }
