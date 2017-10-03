@@ -13,6 +13,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     private static final String DS_PRODUTO = "ds_produto";
     private static final String DS_TIPO = "ds_tipo";
     private static final String DS_GENERO = "ds_genero";
+    private static final String DS_COR = "ds_cor";
     private static final String DS_TOM = "ds_tom";
     private static final String FL_IMAGEM = "fl_imagem";
     private static final String DS_LINK = "ds_link";
@@ -32,6 +33,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
                 + DS_PRODUTO + " TEXT, "
                 + DS_TIPO + " TEXT, "
                 + DS_GENERO + " TEXT, "
+                + DS_COR + " TEXT, "
                 + DS_TOM + " TEXT, "
                 + FL_IMAGEM + " BLOB, "
                 + DS_LINK + " TEXT, "
