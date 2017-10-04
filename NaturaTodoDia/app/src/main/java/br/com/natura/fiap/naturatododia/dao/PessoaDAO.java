@@ -1,9 +1,14 @@
 package br.com.natura.fiap.naturatododia.dao;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.sql.Date;
+
+import br.com.natura.fiap.naturatododia.entity.Pessoa;
 
 
 public class PessoaDAO extends SQLiteOpenHelper {
@@ -42,37 +47,34 @@ public class PessoaDAO extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    public String getDadosPessoa(){
-        /*
-        * String select =  "SELECT p.nome, p.codPessoa " +
-                "FROM CREDENCIAL as c INNER JOIN  PESSOA as p ON p.codCredencial = c.codCredencial" +
-                " WHERE c.nmUsuario = '" + login+"'";
+    public Pessoa getDadosPessoa(){
+        Pessoa pessoa = new Pessoa();
+        String select =  "SELECT * FROM " + TABLE_PESSOA;
 
         Cursor cursor = getReadableDatabase().rawQuery(select, null);
 
         try{
 
             while (cursor.moveToNext()){
-
-
-                professor.setNome(cursor.getString(0));
-                professor.setCdPessoa(cursor.getInt(1));
-
+                pessoa.setId(cursor.getInt(0));
+                pessoa.setNome(cursor.getString(1));
+                pessoa.setDtNasci(new Date(cursor.getLong(2) * 1000));
+                pessoa.setSexo(cursor.getString(3));
+                pessoa.setCorPele(cursor.getString(4));
+                pessoa.setTipoPele(cursor.getString(5));
+                pessoa.setTipoCabelo(cursor.getString(6));
             }
 
         }catch(Exception e){
-            throw e;
+            pessoa = null;
         }
         finally{
-
             cursor.close();
         }
-        *
-        * */
-        return "";
+        return pessoa;
     }
 
-    public void atualizaCadastro(String pessoa){
+    public void atualizaCadastro(Pessoa pessoa){
 
     }
 

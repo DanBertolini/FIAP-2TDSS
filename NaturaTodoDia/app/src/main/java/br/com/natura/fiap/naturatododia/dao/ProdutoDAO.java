@@ -1,12 +1,15 @@
 package br.com.natura.fiap.naturatododia.dao;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.natura.fiap.naturatododia.entity.Produto;
 
 public class ProdutoDAO extends SQLiteOpenHelper {
 
@@ -55,8 +58,34 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    public String buscarProduto(int id){
-        return "";
+    public Produto buscarProduto(int id){
+        Produto prod = new Produto();
+        String select =  "SELECT * FROM " + TABLE_PRODUTO + "WHERE " + ID + " = " + id;
+        Cursor cursor = getReadableDatabase().rawQuery(select, null);
+
+        try{
+
+            while (cursor.moveToNext()) {
+                prod.setId(cursor.getInt(0));
+                prod.setNome(cursor.getString(1));
+                prod.setDescricao(cursor.getString(2));
+                prod.setTipo(cursor.getString(3));
+                prod.setGenero(cursor.getString(4));
+                prod.setCor(cursor.getString(5));
+                prod.setTom(cursor.getString(6));
+                prod.setLink(cursor.getString(8));
+                prod.setFps(cursor.getInt(9));
+                prod.setBrilho(cursor.getInt(10) == 1);
+                prod.setPreco(cursor.getFloat(11));
+            }
+        }catch(Exception e){
+            prod = null;
+        }
+        finally{
+            cursor.close();
+        }
+
+        return prod;
     }
 
     public List<String> buscarProdutosPorSugestao(int idSugestao){

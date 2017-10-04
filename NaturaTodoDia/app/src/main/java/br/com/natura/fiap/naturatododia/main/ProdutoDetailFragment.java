@@ -48,7 +48,7 @@ public class ProdutoDetailFragment extends Fragment{
             Log.e("ERRO", "Erro ao carregar titulo");
         }
 
-        String produto = getDetalhesProduto(idProduto, v.getContext());
+        Produto produto = getDetalhesProduto(idProduto, v.getContext());
         txtNome = (TextView) v.findViewById(R.id.txtNome);
         txtTipoProd = (TextView) v.findViewById(R.id.txtTipoProd);
         txtCores = (TextView) v.findViewById(R.id.txtCores);
@@ -59,10 +59,22 @@ public class ProdutoDetailFragment extends Fragment{
         txtPreco = (TextView) v.findViewById(R.id.txtPreco);
         txtDescricao = (TextView) v.findViewById(R.id.txtDescricao);
 
+        if(produto != null){
+            txtNome.setText(produto.getNome());
+            txtTipoProd.setText(produto.getTipo());
+            txtCores.setText(produto.getCor());
+            txtTom.setText(produto.getTom());
+            txtFPS.setText(produto.getFps());
+            txtBrilho.setText(produto.isBrilho() ? "Sim": "Não");
+            txtLink.setText(produto.getLink());
+            txtPreco.setText("R$ " + produto.getPreco());
+            txtDescricao.setText(produto.getDescricao());
+        }
+
         return v;
     }
 
-    public String getDetalhesProduto(int id, Context ctx){
+    public Produto getDetalhesProduto(int id, Context ctx){
         ProdutoDAO dao = new DAO(ctx).getProdutoDAO();
         return dao.buscarProduto(id);
     }

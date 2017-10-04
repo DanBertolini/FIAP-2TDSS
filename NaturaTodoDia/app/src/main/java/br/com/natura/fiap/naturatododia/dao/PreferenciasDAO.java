@@ -1,9 +1,12 @@
 package br.com.natura.fiap.naturatododia.dao;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import br.com.natura.fiap.naturatododia.entity.Preferencia;
 
 public class PreferenciasDAO extends SQLiteOpenHelper {
     private static final  String TABLE_PREFERENCIAS = "PREFERENCIAS";
@@ -37,11 +40,30 @@ public class PreferenciasDAO extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    public String getPreferenciasPessoa(){
-        return "";
+    public Preferencia getPreferenciasPessoa(){
+        Preferencia pref = new Preferencia();
+        String select =  "SELECT * FROM " + TABLE_PREFERENCIAS;
+
+        Cursor cursor = getReadableDatabase().rawQuery(select, null);
+
+        try{
+
+            while (cursor.moveToNext()){
+                pref.setId(cursor.getInt(0));
+                pref.setTomFavorito(cursor.getString(2));
+                pref.setFragFavorita(cursor.getString(3));
+            }
+
+        }catch(Exception e){
+            pref = null;
+        }
+        finally{
+            cursor.close();
+        }
+        return pref;
     }
 
-    public void atualizaPreferencias(String preferencias){
+    public void atualizaPreferencias(Preferencia preferencias){
 
     }
 

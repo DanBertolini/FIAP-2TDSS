@@ -1,12 +1,16 @@
 package br.com.natura.fiap.naturatododia.dao;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.natura.fiap.naturatododia.entity.Evento;
 
 public class EventoDAO extends SQLiteOpenHelper {
 
@@ -49,24 +53,44 @@ public class EventoDAO extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    public String buscarEvento(int id){
-        return "";
-    }
-
-    public List<String> buscarEventosPendentes(){
-        /*
-        * String select =  "SELECT * FROM EVENTO WHERE data = '" +data +"' AND codTurma = "+ turma +" ORDER BY codEvento";
+    public Evento buscarEvento(int id){
+        Evento ev = new Evento();
+        String select =  "SELECT * FROM " + TABLE_EVENTO + "WHERE " + ID + " = " + id;
         Cursor cursor = getReadableDatabase().rawQuery(select, null);
 
         try{
 
             while (cursor.moveToNext()) {
+                ev.setId(cursor.getInt(0));
+                ev.setNome(cursor.getString(2));
+                ev.setDtEvento(new Date(cursor.getLong(3) * 1000));
+                ev.setTipo(cursor.getString(4));
+                ev.setEstacao(cursor.getString(5));
+                ev.setPeriodo(cursor.getString(6));
+                ev.setDescricao(cursor.getString(7));
+
+            }
+        }catch(Exception e){
+            ev = null;
+        }
+        finally{
+            cursor.close();
+        }
+
+        return ev;
+    }
+
+    public List<Evento> buscarEventosPendentes(){
+        String select =  "SELECT * FROM " + TABLE_EVENTO + " WHERE "+ DT_EVENTO + " >= date('now') ORDER BY " + ID;
+        Cursor cursor = getReadableDatabase().rawQuery(select, null);
+        List<Evento> listaEventos = new ArrayList<>();
+        try{
+
+            while (cursor.moveToNext()) {
 
                 Evento evento = new Evento();
-                evento.setCd_evento(cursor.getInt(0));
-                evento.setNm_evento(cursor.getString(1));
-                evento.setDs_evento(cursor.getString(2));
-                evento.setDt_evento(cursor.getString(3));
+                evento.setId(cursor.getInt(0));
+                evento.setNome(cursor.getString(1));
                 listaEventos.add(evento);
 
             }
@@ -77,15 +101,33 @@ public class EventoDAO extends SQLiteOpenHelper {
 
             cursor.close();
         }
-        *
-        *
-        * */
 
-        return new ArrayList<String>();
+        return listaEventos;
     }
 
-    public List<String> buscarEventosConcluidos(){
-        return new ArrayList<String>();
+    public List<Evento> buscarEventosConcluidos(){
+        String select =  "SELECT * FROM " + TABLE_EVENTO + " WHERE "+ DT_EVENTO + " < date('now') ORDER BY " + ID;
+        Cursor cursor = getReadableDatabase().rawQuery(select, null);
+        List<Evento> listaEventos = new ArrayList<>();
+        try{
+
+            while (cursor.moveToNext()) {
+
+                Evento evento = new Evento();
+                evento.setId(cursor.getInt(0));
+                evento.setNome(cursor.getString(1));
+                listaEventos.add(evento);
+
+            }
+        }catch(Exception e){
+            throw e;
+        }
+        finally{
+
+            cursor.close();
+        }
+
+        return listaEventos;
     }
 
 }

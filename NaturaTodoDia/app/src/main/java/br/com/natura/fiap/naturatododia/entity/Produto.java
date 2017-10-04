@@ -4,6 +4,7 @@ package br.com.natura.fiap.naturatododia.entity;
 public class Produto {
     private int id;
     private String nome;
+    private String descricao;
     private String tipo;
     private String genero;
     private String cor;
@@ -14,8 +15,12 @@ public class Produto {
     private boolean brilho;
     private float preco;
 
-    public Produto(String nome) {
-        this.nome = nome;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -24,6 +29,86 @@ public class Produto {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public String getTom() {
+        return tom;
+    }
+
+    public void setTom(String tom) {
+        this.tom = tom;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public int getFps() {
+        return fps;
+    }
+
+    public void setFps(int fps) {
+        this.fps = fps;
+    }
+
+    public boolean isBrilho() {
+        return brilho;
+    }
+
+    public void setBrilho(boolean brilho) {
+        this.brilho = brilho;
+    }
+
+    public float getPreco() {
+        return preco;
+    }
+
+    public void setPreco(float preco) {
+        this.preco = preco;
     }
 
     @Override

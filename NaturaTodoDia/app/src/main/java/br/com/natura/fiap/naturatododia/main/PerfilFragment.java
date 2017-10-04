@@ -17,6 +17,9 @@ import br.com.natura.fiap.naturatododia.R;
 import br.com.natura.fiap.naturatododia.dao.DAO;
 import br.com.natura.fiap.naturatododia.dao.PessoaDAO;
 import br.com.natura.fiap.naturatododia.dao.PreferenciasDAO;
+import br.com.natura.fiap.naturatododia.entity.Evento;
+import br.com.natura.fiap.naturatododia.entity.Pessoa;
+import br.com.natura.fiap.naturatododia.entity.Preferencia;
 
 public class PerfilFragment extends Fragment implements View.OnClickListener {
     RelativeLayout dadosLayout;
@@ -48,6 +51,8 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
 
     boolean isMeusDados = true;
 
+    Pessoa pessoa = new Pessoa();
+
     public PerfilFragment() {
     }
 
@@ -61,8 +66,8 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         View v = inflater.inflate(R.layout.perfil_layout, container, false);
         ctx = v.getContext();
 
-        String pessoa = getDadosPessoa();
-        String preferencias = getPreferenciasPessoa();
+        Pessoa pessoa = getDadosPessoa();
+        pessoa.setPreferencia(getPreferenciasPessoa());
 
         dadosLayout = (RelativeLayout) v.findViewById(R.id.dadosLayout);
         dadosTab = (TextView) v.findViewById(R.id.dadosTab);
@@ -198,17 +203,17 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         txtFragFavorita.setText(edTxtFragFavorita.getText());
 
         PessoaDAO dao = new DAO(ctx).getPessoaDAO();
-        dao.atualizaCadastro("");
+        dao.atualizaCadastro(null);
         PreferenciasDAO dao2 = new DAO(ctx).getPreferenciaDAO();
-        dao2.atualizaPreferencias("");
+        dao2.atualizaPreferencias(null);
     }
 
-    private String getDadosPessoa(){
+    private Pessoa getDadosPessoa(){
         PessoaDAO dao = new DAO(ctx).getPessoaDAO();
         return dao.getDadosPessoa();
     }
 
-    private String getPreferenciasPessoa(){
+    private Preferencia getPreferenciasPessoa(){
         PreferenciasDAO dao = new DAO(ctx).getPreferenciaDAO();
         return dao.getPreferenciasPessoa();
     }

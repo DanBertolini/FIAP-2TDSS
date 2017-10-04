@@ -20,13 +20,14 @@ import java.util.List;
 import br.com.natura.fiap.naturatododia.R;
 import br.com.natura.fiap.naturatododia.dao.DAO;
 import br.com.natura.fiap.naturatododia.dao.EventoDAO;
+import br.com.natura.fiap.naturatododia.entity.Evento;
 
 public class EventosFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener{
     ListView listEventos;
-    List<String> eventosPendentes;
-    List<String> eventosConcluidos;
-    ArrayAdapter<String> eventosPendentesAdp;
-    ArrayAdapter<String> eventosConcluidosAdp;
+    List<Evento> eventosPendentes;
+    List<Evento> eventosConcluidos;
+    ArrayAdapter<Evento> eventosPendentesAdp;
+    ArrayAdapter<Evento> eventosConcluidosAdp;
 
     TextView evtPendentes;
     TextView evtConcluidos;
@@ -47,10 +48,10 @@ public class EventosFragment extends Fragment implements View.OnClickListener, A
         eventosConcluidos = getEventos(false, v.getContext());
 
         listEventos = (ListView) v.findViewById(R.id.listEventos);
-        eventosPendentesAdp = new ArrayAdapter<String>(v.getContext(),
+        eventosPendentesAdp = new ArrayAdapter<>(v.getContext(),
                 android.R.layout.simple_list_item_1,
                 eventosPendentes);
-        eventosConcluidosAdp = new ArrayAdapter<String>(v.getContext(),
+        eventosConcluidosAdp = new ArrayAdapter<>(v.getContext(),
                 android.R.layout.simple_list_item_1,
                 eventosConcluidos);
         listEventos.setAdapter(eventosPendentesAdp);
@@ -87,11 +88,12 @@ public class EventosFragment extends Fragment implements View.OnClickListener, A
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Evento ev = (Evento) parent.getSelectedItem();
 
         SugestoesFragment sugestsFragment = new SugestoesFragment();
         Bundle arguments = new Bundle();
-        arguments.putString("evtName", ((AppCompatTextView) view).getText().toString());
-        arguments.putInt("idEvento", 0);
+        arguments.putString("evtName", ev.getNome());
+        arguments.putInt("idEvento", ev.getId());
         sugestsFragment.setArguments(arguments);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -101,7 +103,7 @@ public class EventosFragment extends Fragment implements View.OnClickListener, A
         ft.commit();
     }
 
-    private List<String> getEventos(boolean pendente, Context ctx){
+    private List<Evento> getEventos(boolean pendente, Context ctx){
         EventoDAO dao = new DAO(ctx).getEventoDAO();
         if(pendente){
             return dao.buscarEventosPendentes();
