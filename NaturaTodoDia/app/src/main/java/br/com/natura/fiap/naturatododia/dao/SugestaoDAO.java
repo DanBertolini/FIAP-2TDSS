@@ -90,7 +90,6 @@ public class SugestaoDAO extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().rawQuery(select, null);
 
         try{
-
             while (cursor.moveToNext()) {
                 Sugestao sugestao = new Sugestao();
                 sugestao.setId(cursor.getInt(0));
@@ -115,7 +114,6 @@ public class SugestaoDAO extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().rawQuery(select, null);
 
         try{
-
             while (cursor.moveToNext()) {
                 Produto prod = new Produto();
                 prod.setId(cursor.getInt(0));
@@ -132,8 +130,13 @@ public class SugestaoDAO extends SQLiteOpenHelper {
         return prds;
     }
 
-    public  void salvarSugestao(int idSugestao, String nomeSugestao){
+    public  void salvarSugestao(int idSugestao, String nomeSugestao, boolean salvo){
+        String salva = "UPDATE " + TABLE_SUGESTAO + " SET "
+                + IS_SALVO + " = " + (salvo ? "1" : "0") + ", "
+                + NM_SUGESTAO + " = " + nomeSugestao
+                + " WHERE " + ID + " = " + idSugestao;
 
+        getWritableDatabase().execSQL(salva);
     }
 
 }

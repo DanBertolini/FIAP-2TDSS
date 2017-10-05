@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         btnSave = (ImageButton) findViewById(R.id.btnSave);
         btnUnsave = (ImageButton) findViewById(R.id.btnUnsave);
 
-        atualizaProdutos();
+        //atualizaProdutos();
     }
 
     @Override

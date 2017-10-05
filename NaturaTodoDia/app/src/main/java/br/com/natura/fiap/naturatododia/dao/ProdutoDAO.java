@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,22 +95,59 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         String select =  "SELECT * FROM " + TABLE_PRODUTO + "WHERE " + ID + " = " + prd.getId();
         Cursor cursor = getReadableDatabase().rawQuery(select, null);
 
-        if(cursor.moveToNext()){
-            String update = "UPDATE " + TABLE_PRODUTO +
-                    "SET "
-                    + NM_PRODUTO + " = " + prd.getNome() + ", "
-                    + DS_PRODUTO + " = " + prd.getDescricao() + ", "
-                    + DS_TIPO + " = " + prd.getTipo() + ", "
-                    + DS_GENERO + " = " + prd.getGenero() + ", "
-                    + DS_COR + " = " + prd.getCor() + ", "
-                    + DS_TOM + " = " + prd.getTom() + ", "
-                    + FL_IMAGEM + " = " + prd.getImg() + ", "
-                    + DS_LINK + " = " + prd.getLink() + ", "
-                    + VL_FPS + " = " + prd.getFps() + ", "
-                    + HAS_BRILHO + " = " + (prd.isBrilho() ? "1" : "0") + ", "
-                    + VL_PRECO + " = " + prd.getPreco() + ", "
-                    + IS_ATIVO + " = " + (prd.isAtivo() ? "1" : "0")
-                    + " WHERE " + ID + " = " + prd.getId();
+        try{
+            SQLiteDatabase database = getWritableDatabase();
+            if(cursor.moveToNext()){
+                String update = "UPDATE " + TABLE_PRODUTO +
+                        "SET "
+                        + NM_PRODUTO + " = " + prd.getNome() + ", "
+                        + DS_PRODUTO + " = " + prd.getDescricao() + ", "
+                        + DS_TIPO + " = " + prd.getTipo() + ", "
+                        + DS_GENERO + " = " + prd.getGenero() + ", "
+                        + DS_COR + " = " + prd.getCor() + ", "
+                        + DS_TOM + " = " + prd.getTom() + ", "
+                        + FL_IMAGEM + " = " + prd.getImg() + ", "
+                        + DS_LINK + " = " + prd.getLink() + ", "
+                        + VL_FPS + " = " + prd.getFps() + ", "
+                        + HAS_BRILHO + " = " + (prd.isBrilho() ? "1" : "0") + ", "
+                        + VL_PRECO + " = " + prd.getPreco() + ", "
+                        + IS_ATIVO + " = " + (prd.isAtivo() ? "1" : "0")
+                        + " WHERE " + ID + " = " + prd.getId();
+                database.execSQL(update);
+            } else {
+                String insert = "INSERT INTO " + TABLE_PRODUTO +
+                        "("
+                        + ID + ", "
+                        + NM_PRODUTO + ", "
+                        + DS_PRODUTO + ", "
+                        + DS_TIPO + ", "
+                        + DS_GENERO + ", "
+                        + DS_COR + ", "
+                        + DS_TOM + ", "
+                        + FL_IMAGEM + ", "
+                        + DS_LINK + ", "
+                        + VL_FPS + ", "
+                        + HAS_BRILHO + ", "
+                        + VL_PRECO + ", "
+                        + IS_ATIVO + ") VALUES ("
+                        + prd.getId() + ", "
+                        + prd.getNome() + ", "
+                        + prd.getDescricao() + ", "
+                        + prd.getTipo() + ", "
+                        + prd.getGenero() + ", "
+                        + prd.getCor() + ", "
+                        + prd.getTom() + ", "
+                        + prd.getImg() + ", "
+                        + prd.getLink() + ", "
+                        + prd.getFps() + ", "
+                        + (prd.isBrilho() ? "1" : "0") + ", "
+                        + prd.getPreco() + ", "
+                        + (prd.isAtivo() ? "1" : "0");
+                database.execSQL(insert);
+            }
+
+        }catch (Exception e){
+            Log.e("DB-ERRO", "Erro ao incluir/atualizar produto");
         }
     }
 

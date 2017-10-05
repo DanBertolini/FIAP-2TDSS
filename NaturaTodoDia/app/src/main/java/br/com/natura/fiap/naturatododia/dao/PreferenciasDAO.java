@@ -64,7 +64,12 @@ public class PreferenciasDAO extends SQLiteOpenHelper {
     }
 
     public void atualizaPreferencias(Preferencia preferencias){
+        String update = "UPDATE " + TABLE_PREFERENCIAS + " SET "
+                + DS_TOM_FAVORITO + " = " + preferencias.getTomFavorito() +", "
+                + DS_FRAGANCIA_FAVORITO + " = " + preferencias.getFragFavorita()
+                + " WHERE " + ID + " = " + preferencias.getId();
 
+        getWritableDatabase().execSQL(update);
     }
 
 }

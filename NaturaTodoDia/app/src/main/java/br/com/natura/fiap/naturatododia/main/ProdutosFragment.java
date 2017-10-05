@@ -96,6 +96,7 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
         } else if(v.getId() == R.id.btnUnsave){
             btnUnsave.setVisibility(View.GONE);
             btnSave.setVisibility(View.VISIBLE);
+            unsaveSugestao(idSugestao, _ctx);
             Toast.makeText(mainActivity, "Sugestão não salva", Toast.LENGTH_SHORT).show();
         }
     }
@@ -144,8 +145,13 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
         return dao.buscarProdutosPorSugestao(idSugestao);
     }
 
+    private void unsaveSugestao(int idSugestao, Context ctx){
+        SugestaoDAO dao = new DAO(ctx).getSugestaoDAO();
+        dao.salvarSugestao(idSugestao, nomeSugestao, false);
+    }
+
     private  void salvarSugestao(int idSugestao, String nomeSugestao, Context ctx){
         SugestaoDAO dao = new DAO(ctx).getSugestaoDAO();
-        dao.salvarSugestao(idSugestao, nomeSugestao);
+        dao.salvarSugestao(idSugestao, nomeSugestao, true);
     }
 }
