@@ -18,7 +18,20 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import br.com.natura.fiap.naturatododia.R;
+import br.com.natura.fiap.naturatododia.dao.DAO;
+import br.com.natura.fiap.naturatododia.dao.ProdutoDAO;
 import br.com.natura.fiap.naturatododia.login.LoginActivity;
 import br.com.natura.fiap.naturatododia.utils.NaturaDialog;
 import br.com.natura.fiap.naturatododia.utils.SaveSharedPreference;
@@ -61,7 +74,8 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         TextView nomeUser = (TextView)headerView.findViewById(R.id.nome_usuario);
-        nomeUser.setText("Daniel");
+        //nomeUser.setText("Daniel");
+
         navigationView.setNavigationItemSelectedListener(this);
 
         chatFragment = new ChatFragment();
@@ -223,14 +237,14 @@ public class MainActivity extends AppCompatActivity
 
     private void atualizaProdutos() {
 
-        final String URL = "http://192.168.56.1:8080/WebServiceAM/rest/produto";
+        final String URL = "https://raw.githubusercontent.com/DanBertolini/Fiap-JsonService/master/db.json";
 
-        RequestQueue reqQueue = Volley.newRequestQueue(this.getContext());
+        RequestQueue reqQueue = Volley.newRequestQueue(getApplicationContext());
 
-        VolleyJSONObjectResponse resp = new VolleyJSONObjectResponse();
+        VolleyJSONArrayResponse resp = new VolleyJSONArrayResponse();
         VolleyErroRequest fail = new VolleyErroRequest();
 
-        JsonObjectRequest jsonReq = new JsonObjectRequest(URL, null, resp, fail);
+        JsonArrayRequest jsonReq = new JsonArrayRequest(URL, resp, fail);
         reqQueue.add(jsonReq);
 
     }
@@ -239,21 +253,21 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.i("Erro ao Atualizar os produtos",error.toString());
+            Log.i("Error",error.toString());
         }
     }
 
-    private class VolleyJSONObjectResponse implements Response.Listener<JSONArray> {
+    private class VolleyJSONArrayResponse implements Response.Listener<JSONArray> {
 
         @Override
-        public void onResponse(JSONObject response) {
+        public void onResponse(JSONArray response) {
 
             try {
+                ProdutoDAO dao = new DAO(getApplicationContext()).getProdutoDAO();
 
-                String metodo = response.getString("metodo");
-                String msg = response.getString("msg");
-
-                Log.i("teste",metodo + "/" + msg);
+                for	(int	i	=	0;	i	<	response.length();	i++)	{
+                    JSONObject prd	=	response.getJSONObject(i);
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();

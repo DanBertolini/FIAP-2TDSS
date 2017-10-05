@@ -14,6 +14,7 @@ public class Produto {
     private int fps;
     private boolean brilho;
     private float preco;
+    private boolean ativo;
 
     public int getId() {
         return id;
@@ -109,6 +110,14 @@ public class Produto {
 
     public void setPreco(float preco) {
         this.preco = preco;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override

@@ -35,14 +35,14 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database) {
         String createTable = "CREATE TABLE " + TABLE_PRODUTO + "( "
-                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + ID + " INTEGER PRIMARY KEY, "
                 + NM_PRODUTO + " TEXT, "
                 + DS_PRODUTO + " TEXT, "
                 + DS_TIPO + " TEXT, "
                 + DS_GENERO + " TEXT, "
                 + DS_COR + " TEXT, "
                 + DS_TOM + " TEXT, "
-                + FL_IMAGEM + " BLOB, "
+                + FL_IMAGEM + " TEXT, "
                 + DS_LINK + " TEXT, "
                 + VL_FPS + " INTEGER, "
                 + HAS_BRILHO + " INTEGER DEFAULT 0,"
@@ -88,6 +88,29 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         }
 
         return prod;
+    }
+
+    public void atualizarProd(Produto prd){
+        String select =  "SELECT * FROM " + TABLE_PRODUTO + "WHERE " + ID + " = " + prd.getId();
+        Cursor cursor = getReadableDatabase().rawQuery(select, null);
+
+        if(cursor.moveToNext()){
+            String update = "UPDATE " + TABLE_PRODUTO +
+                    "SET "
+                    + NM_PRODUTO + " = " + prd.getNome() + ", "
+                    + DS_PRODUTO + " = " + prd.getDescricao() + ", "
+                    + DS_TIPO + " = " + prd.getTipo() + ", "
+                    + DS_GENERO + " = " + prd.getGenero() + ", "
+                    + DS_COR + " = " + prd.getCor() + ", "
+                    + DS_TOM + " = " + prd.getTom() + ", "
+                    + FL_IMAGEM + " = " + prd.getImg() + ", "
+                    + DS_LINK + " = " + prd.getLink() + ", "
+                    + VL_FPS + " = " + prd.getFps() + ", "
+                    + HAS_BRILHO + " = " + (prd.isBrilho() ? "1" : "0") + ", "
+                    + VL_PRECO + " = " + prd.getPreco() + ", "
+                    + IS_ATIVO + " = " + (prd.isAtivo() ? "1" : "0")
+                    + " WHERE " + ID + " = " + prd.getId();
+        }
     }
 
 }
