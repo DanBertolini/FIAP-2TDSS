@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity
         btnDetalhesEvento = (ImageButton) findViewById(R.id.btnDetalhesEvento);
         btnSave = (ImageButton) findViewById(R.id.btnSave);
         btnUnsave = (ImageButton) findViewById(R.id.btnUnsave);
+
+        atualizaProdutos();
     }
 
     @Override
@@ -217,5 +219,46 @@ public class MainActivity extends AppCompatActivity
                 callback.onCancel();
             }
         };
+    }
+
+    private void atualizaProdutos() {
+
+        final String URL = "http://192.168.56.1:8080/WebServiceAM/rest/produto";
+
+        RequestQueue reqQueue = Volley.newRequestQueue(this.getContext());
+
+        VolleyJSONObjectResponse resp = new VolleyJSONObjectResponse();
+        VolleyErroRequest fail = new VolleyErroRequest();
+
+        JsonObjectRequest jsonReq = new JsonObjectRequest(URL, null, resp, fail);
+        reqQueue.add(jsonReq);
+
+    }
+
+    private class VolleyErroRequest implements Response.ErrorListener {
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.i("Erro ao Atualizar os produtos",error.toString());
+        }
+    }
+
+    private class VolleyJSONObjectResponse implements Response.Listener<JSONArray> {
+
+        @Override
+        public void onResponse(JSONObject response) {
+
+            try {
+
+                String metodo = response.getString("metodo");
+                String msg = response.getString("msg");
+
+                Log.i("teste",metodo + "/" + msg);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }
