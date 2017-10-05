@@ -66,7 +66,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         View v = inflater.inflate(R.layout.perfil_layout, container, false);
         ctx = v.getContext();
 
-        Pessoa pessoa = getDadosPessoa();
+        pessoa = getDadosPessoa();
         pessoa.setPreferencia(getPreferenciasPessoa());
 
         dadosLayout = (RelativeLayout) v.findViewById(R.id.dadosLayout);
@@ -199,13 +199,22 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         txtTipoPele.setText(edTxtTipoPele.getText());
         txtTipoCabelo.setText(edTxtTipoCabelo.getText());
 
+        pessoa.setNome(edTxtNome.getText().toString());
+        pessoa.setSexo(edTxtSexo.getText().toString());
+        pessoa.setCorPele(edTxtCorPele.getText().toString());
+        pessoa.setTipoPele(edTxtTipoPele.getText().toString());
+        pessoa.setTipoCabelo(edTxtTipoCabelo.getText().toString());
+
         txtTomFavorito.setText(edTxtTomFavorito.getText());
         txtFragFavorita.setText(edTxtFragFavorita.getText());
 
+        pessoa.getPreferencia().setTomFavorito(edTxtTomFavorito.getText().toString());
+        pessoa.getPreferencia().setFragFavorita(edTxtFragFavorita.getText().toString());
+
         PessoaDAO dao = new DAO(ctx).getPessoaDAO();
-        dao.atualizaCadastro(null);
+        dao.atualizaCadastro(pessoa);
         PreferenciasDAO dao2 = new DAO(ctx).getPreferenciaDAO();
-        dao2.atualizaPreferencias(null);
+        dao2.atualizaPreferencias(pessoa.getPreferencia());
     }
 
     private Pessoa getDadosPessoa(){

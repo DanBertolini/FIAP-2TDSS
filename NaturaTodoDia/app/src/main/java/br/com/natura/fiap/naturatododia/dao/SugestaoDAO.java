@@ -1,12 +1,16 @@
 package br.com.natura.fiap.naturatododia.dao;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.natura.fiap.naturatododia.entity.Produto;
+import br.com.natura.fiap.naturatododia.entity.Sugestao;
 
 public class SugestaoDAO extends SQLiteOpenHelper {
 
@@ -19,6 +23,7 @@ public class SugestaoDAO extends SQLiteOpenHelper {
     private static final String TABLE_SUGESTAO_PRODUTO = "SUGESTAO_PRODUTO";
     private static final String CD_PRODUTO = "cd_produto";
     private static final String TABLE_PRODUTO = "PRODUTO";
+    private static final String NM_PRODUTO = "nm_produto";
 
 
     public SugestaoDAO(Context context, String dbName, int dbVersion) {
@@ -56,12 +61,79 @@ public class SugestaoDAO extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    public List<String> buscarSugestoesPorEvento(int idEvento){
-        return new ArrayList<>();
+    public List<Sugestao> buscarSugestoesPorEvento(int idEvento){
+        List<Sugestao> listSugest = new ArrayList<>();
+        String select =  "SELECT * FROM " + TABLE_SUGESTAO + "WHERE " + CD_EVENTO + " = " + idEvento;
+        Cursor cursor = getReadableDatabase().rawQuery(select, null);
+
+        try{
+
+            while (cursor.moveToNext()) {
+                Sugestao sugestao = new Sugestao();
+                sugestao.setId(cursor.getInt(0));
+                sugestao.setNome(cursor.getString(2));
+                listSugest.add(sugestao);
+            }
+        }catch(Exception e){
+            listSugest = null;
+        }
+        finally{
+            cursor.close();
+        }
+
+        return listSugest;
     }
 
-    public List<String> buscarSugestoesSalvas(){
-        return new ArrayList<>();
+    public List<Sugestao> buscarSugestoesSalvas(){
+        List<Sugestao> listSugest = new ArrayList<>();
+        String select =  "SELECT * FROM " + TABLE_SUGESTAO + "WHERE " + IS_SALVO + " = " + 1;
+        Cursor cursor = getReadableDatabase().rawQuery(select, null);
+
+        try{
+
+            while (cursor.moveToNext()) {
+                Sugestao sugestao = new Sugestao();
+                sugestao.setId(cursor.getInt(0));
+                sugestao.setNome(cursor.getString(2));
+                listSugest.add(sugestao);;
+            }
+        }catch(Exception e){
+            listSugest = null;
+        }
+        finally{
+            cursor.close();
+        }
+
+        return listSugest;
+    }
+
+    public List<Produto> buscarProdutosPorSugestao(int idSugestao){
+        List<Produto> prds = new ArrayList<>();
+        String select =  "SELECT P." + CD_PRODUTO + ", P." + NM_PRODUTO + "FROM " + TABLE_SUGESTAO_PRODUTO +
+                " SG INNER JOIN " + TABLE_PRODUTO + " P " +
+                "ON SG." + CD_PRODUTO + "= P." + CD_PRODUTO + "WHERE " + ID + " = " + idSugestao;
+        Cursor cursor = getReadableDatabase().rawQuery(select, null);
+
+        try{
+
+            while (cursor.moveToNext()) {
+                Produto prod = new Produto();
+                prod.setId(cursor.getInt(0));
+                prod.setNome(cursor.getString(1));
+                prds.add(prod);
+            }
+        }catch(Exception e){
+            prds = null;
+        }
+        finally{
+            cursor.close();
+        }
+
+        return prds;
+    }
+
+    public  void salvarSugestao(int idSugestao, String nomeSugestao){
+
     }
 
 }

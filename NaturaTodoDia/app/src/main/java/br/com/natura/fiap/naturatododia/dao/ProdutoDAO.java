@@ -88,7 +88,4 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         return prod;
     }
 
-    public List<String> buscarProdutosPorSugestao(int idSugestao){
-        return new ArrayList<String>();
-    }
 }

@@ -22,19 +22,24 @@ import java.util.List;
 import br.com.natura.fiap.naturatododia.R;
 import br.com.natura.fiap.naturatododia.dao.DAO;
 import br.com.natura.fiap.naturatododia.dao.ProdutoDAO;
+import br.com.natura.fiap.naturatododia.dao.SugestaoDAO;
+import br.com.natura.fiap.naturatododia.entity.Produto;
 import br.com.natura.fiap.naturatododia.utils.InputResults;
 import br.com.natura.fiap.naturatododia.utils.NaturaDialog;
 
 public class ProdutosFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener{
     ListView listProdutos;
-    ArrayList<String> produtos;
-    ArrayAdapter<String> produtosAdp;
+    List<Produto> produtos;
+    ArrayAdapter<Produto> produtosAdp;
 
     ImageButton btnSave;
     ImageButton btnUnsave;
 
+    private int idSugestao;
     String nomeSugestao;
     private InputResults inputNomeSugestao;
+
+    private Context _ctx;
 
     public ProdutosFragment() {
     }
@@ -48,8 +53,9 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.produtos_layout, container, false);
         MainActivity mainActivity = ((MainActivity)getActivity());
-
+        idSugestao = 0;
         try{
+            idSugestao = getArguments().getInt("idSugestao");
             nomeSugestao = getArguments().getString("sugestName");
             mainActivity.getSupportActionBar().setTitle(nomeSugestao);
         }catch (Exception e){
@@ -62,14 +68,16 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
         btnUnsave = (ImageButton) mainActivity.findViewById(R.id.btnUnsave);
         btnUnsave.setOnClickListener(this);
 
-        produtos = new ArrayList<String>();
+        produtos = listarProdutosSugestao(idSugestao, v.getContext());
 
-        produtosAdp = new ArrayAdapter<String>(v.getContext(),
+        produtosAdp = new ArrayAdapter<>(v.getContext(),
                 android.R.layout.simple_list_item_1,
                 produtos);
         listProdutos = (ListView) v.findViewById(R.id.listProdutos);
         listProdutos.setAdapter(produtosAdp);
         listProdutos.setOnItemClickListener(this);
+
+        _ctx = v.getContext();
 
         return v;
     }
@@ -94,10 +102,11 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Produto prd = (Produto) parent.getSelectedItem();
         ProdutoDetailFragment prodFragment = new ProdutoDetailFragment();
         Bundle arguments = new Bundle();
-        arguments.putString("prodName", ((AppCompatTextView) view).getText().toString());
-        arguments.putInt("idProduto", 0);
+        arguments.putString("prodName", prd.getNome());
+        arguments.putInt("idProduto", prd.getId());
         prodFragment.setArguments(arguments);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -113,6 +122,7 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
     private Runnable ok(){
         return new Runnable() {
             public void run() {
+                salvarSugestao(idSugestao, nomeSugestao, _ctx);
                 nomeSugestao = inputNomeSugestao.getValue().toString();
                 MainActivity mainActivity = ((MainActivity)getActivity());
                 Toast.makeText(mainActivity, "Sugestão salva como '" + nomeSugestao +"'", Toast.LENGTH_SHORT).show();
@@ -129,8 +139,13 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
         };
     }
 
-    private List<String> listarProdutosSugestao(int idSugestao, Context ctx){
-        ProdutoDAO dao = new DAO(ctx).getProdutoDAO();
+    private List<Produto> listarProdutosSugestao(int idSugestao, Context ctx){
+        SugestaoDAO dao = new DAO(ctx).getSugestaoDAO();
         return dao.buscarProdutosPorSugestao(idSugestao);
+    }
+
+    private  void salvarSugestao(int idSugestao, String nomeSugestao, Context ctx){
+        SugestaoDAO dao = new DAO(ctx).getSugestaoDAO();
+        dao.salvarSugestao(idSugestao, nomeSugestao);
     }
 }

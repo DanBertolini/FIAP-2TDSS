@@ -2,6 +2,7 @@ package br.com.natura.fiap.naturatododia.main;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
@@ -14,17 +15,20 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.natura.fiap.naturatododia.R;
+import br.com.natura.fiap.naturatododia.dao.DAO;
+import br.com.natura.fiap.naturatododia.dao.SugestaoDAO;
+import br.com.natura.fiap.naturatododia.entity.Sugestao;
 
 public class SugestoesFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener{
     ListView listSugestoes;
-    ArrayList<String> sugestoes;
-    ArrayAdapter<String>sugestoesAdp;
+    List<Sugestao> sugestoes;
+    ArrayAdapter<Sugestao>sugestoesAdp;
     ImageButton btnDetalhesEvento;
 
     String nomeEvento;
-    boolean eventoConcluido;
 
     public SugestoesFragment() {
     }
@@ -38,9 +42,9 @@ public class SugestoesFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.sugestoes_layout, container, false);
         MainActivity mainActivity = ((MainActivity)getActivity());
-
+        int idEvento = 0;
         try {
-            eventoConcluido = getArguments().getBoolean("isConcluido");
+            idEvento = getArguments().getInt("idEvento");
             nomeEvento = getArguments().getString("evtName");
             mainActivity.getSupportActionBar().setTitle(nomeEvento);
         }catch (Exception e){
@@ -51,9 +55,8 @@ public class SugestoesFragment extends Fragment implements View.OnClickListener,
         btnDetalhesEvento.setVisibility(View.VISIBLE);
         btnDetalhesEvento.setOnClickListener(this);
 
-        sugestoes = new ArrayList<String>();
-        sugestoes.add("Sugestão 1");
-        sugestoesAdp = new ArrayAdapter<String>(v.getContext(),
+        sugestoes = getSugestoes(idEvento, v.getContext());
+        sugestoesAdp = new ArrayAdapter<>(v.getContext(),
                 android.R.layout.simple_list_item_1,
                 sugestoes);
         listSugestoes = (ListView) v.findViewById(R.id.listSugestoes);
@@ -83,12 +86,12 @@ public class SugestoesFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Sugestao sugest = (Sugestao) parent.getSelectedItem();
         btnDetalhesEvento.setVisibility(View.INVISIBLE);
         ProdutosFragment prodsFragment = new ProdutosFragment();
         Bundle arguments = new Bundle();
-        arguments.putString("sugestName", ((AppCompatTextView) view).getText().toString());
-        arguments.putBoolean("isConcluido", eventoConcluido);
+        arguments.putInt("idSugestao", sugest.getId());
+        arguments.putString("sugestName", sugest.getNome());
         prodsFragment.setArguments(arguments);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -96,5 +99,10 @@ public class SugestoesFragment extends Fragment implements View.OnClickListener,
         ft.replace(R.id.frameNavigate, prodsFragment);
         ft.addToBackStack(null);
         ft.commit();
+    }
+
+    private List<Sugestao> getSugestoes(int idEvento, Context ctx){
+        SugestaoDAO dao = new DAO(ctx).getSugestaoDAO();
+        return dao.buscarSugestoesPorEvento(idEvento);
     }
 }
