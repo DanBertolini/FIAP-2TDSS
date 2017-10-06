@@ -13,7 +13,7 @@ public class Produto {
     private String link;
     private int fps;
     private boolean brilho;
-    private float preco;
+    private double preco;
     private boolean ativo;
 
     public int getId() {
@@ -104,11 +104,11 @@ public class Produto {
         this.brilho = brilho;
     }
 
-    public float getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(float preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
