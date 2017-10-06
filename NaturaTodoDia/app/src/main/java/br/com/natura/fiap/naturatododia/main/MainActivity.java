@@ -32,6 +32,7 @@ import org.json.JSONObject;
 import br.com.natura.fiap.naturatododia.R;
 import br.com.natura.fiap.naturatododia.dao.DAO;
 import br.com.natura.fiap.naturatododia.dao.ProdutoDAO;
+import br.com.natura.fiap.naturatododia.entity.Produto;
 import br.com.natura.fiap.naturatododia.login.LoginActivity;
 import br.com.natura.fiap.naturatododia.utils.NaturaDialog;
 import br.com.natura.fiap.naturatododia.utils.SaveSharedPreference;
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         btnSave = (ImageButton) findViewById(R.id.btnSave);
         btnUnsave = (ImageButton) findViewById(R.id.btnUnsave);
 
-        //atualizaProdutos();
+        atualizaProdutos();
     }
 
     @Override
@@ -262,16 +263,34 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onResponse(JSONArray response) {
 
-            try {
                 ProdutoDAO dao = new DAO(getApplicationContext()).getProdutoDAO();
-
+                int idProduto = 0;
                 for	(int	i	=	0;	i	<	response.length();	i++)	{
-                    JSONObject prd	=	response.getJSONObject(i);
-                }
+                    try {
+                        JSONObject obj = response.getJSONObject(i);
+                        Produto prd = new Produto();
+                        idProduto = obj.getInt("id");
+                        prd.setId(idProduto);
+                        prd.setNome(obj.getString("nome"));
+                        prd.setDescricao(obj.getString("descricao"));
+                        prd.setTipo(obj.getString("tipo"));
+                        prd.setGenero(obj.getString("genero"));
+                        prd.setCor(obj.getString("cor"));
+                        prd.setTom(obj.getString("tonalidade"));
+                        prd.setImg(obj.getString("imagem"));
+                        prd.setLink(obj.getString("link"));
+                        prd.setFps(obj.getInt("fps"));
+                        prd.setBrilho(obj.getBoolean("brilho"));
+                        prd.setPreco(obj.getDouble("preco"));
+                        prd.setAtivo(true);
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                        dao.atualizarProd(prd);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e("ERRO", "Erro no produto " + idProduto);
+                    }
+                }
 
         }
     }
