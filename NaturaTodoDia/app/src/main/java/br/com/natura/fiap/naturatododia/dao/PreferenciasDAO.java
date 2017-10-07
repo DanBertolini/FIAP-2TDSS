@@ -22,7 +22,7 @@ public class PreferenciasDAO extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database){
-        String createTable =  "CREATE TABLE " + TABLE_PREFERENCIAS + "( "
+        String createTable =  "CREATE TABLE " + TABLE_PREFERENCIAS + " ( "
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + CD_PESSOA + " INTEGER, "
                 + DS_TOM_FAVORITO + " TEXT, "

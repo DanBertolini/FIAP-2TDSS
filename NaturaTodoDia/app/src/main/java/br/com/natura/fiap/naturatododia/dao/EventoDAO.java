@@ -31,7 +31,7 @@ public class EventoDAO extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database){
-        String createTable =  "CREATE TABLE " + TABLE_EVENTO + "( "
+        String createTable =  "CREATE TABLE " + TABLE_EVENTO + " ( "
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + CD_PESSOA + " INTEGER, "
                 + NM_EVENTO + " TEXT, "
@@ -55,7 +55,7 @@ public class EventoDAO extends SQLiteOpenHelper {
 
     public Evento buscarEvento(int id){
         Evento ev = new Evento();
-        String select =  "SELECT * FROM " + TABLE_EVENTO + "WHERE " + ID + " = " + id;
+        String select =  "SELECT * FROM " + TABLE_EVENTO + " WHERE " + ID + " = " + id;
         Cursor cursor = getReadableDatabase().rawQuery(select, null);
 
         try{
@@ -106,7 +106,7 @@ public class EventoDAO extends SQLiteOpenHelper {
     }
 
     public List<Evento> buscarEventosConcluidos(){
-        String select =  "SELECT * FROM " + TABLE_EVENTO + " WHERE "+ DT_EVENTO + " < date('now') ORDER BY " + ID;
+        String select =  "SELECT * FROM " + TABLE_EVENTO + " WHERE " + DT_EVENTO + " < date('now') ORDER BY " + ID;
         Cursor cursor = getReadableDatabase().rawQuery(select, null);
         List<Evento> listaEventos = new ArrayList<>();
         try{

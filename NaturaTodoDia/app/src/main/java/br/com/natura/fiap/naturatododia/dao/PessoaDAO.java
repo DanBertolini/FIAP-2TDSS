@@ -76,11 +76,11 @@ public class PessoaDAO extends SQLiteOpenHelper {
 
     public void atualizaCadastro(Pessoa pessoa){
         String update = "UPDATE " + TABLE_PESSOA + " SET "
-                + NM_PESSOA + " = " + pessoa.getNome() + ", "
-                + DS_SEXO + " = " + pessoa.getSexo() + ", "
-                + DS_COR_PELE + " = " + pessoa.getCorPele() + ", "
-                + DS_TIPO_PELE + " = " + pessoa.getTipoPele() + ", "
-                + DS_TIPO_CABELO + " = " + pessoa.getTipoCabelo() + ", "
+                + NM_PESSOA + " = '" + pessoa.getNome() + "', "
+                + DS_SEXO + " = '" + pessoa.getSexo() + "', "
+                + DS_COR_PELE + " = '" + pessoa.getCorPele() + "', "
+                + DS_TIPO_PELE + " = '" + pessoa.getTipoPele() + "', "
+                + DS_TIPO_CABELO + " = '" + pessoa.getTipoCabelo() + "', "
                 + " WHERE " + ID + " = " + pessoa.getId();
 
         getWritableDatabase().execSQL(update);
