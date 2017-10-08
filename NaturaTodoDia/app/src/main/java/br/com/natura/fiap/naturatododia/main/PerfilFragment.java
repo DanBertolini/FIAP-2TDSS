@@ -12,6 +12,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import br.com.natura.fiap.naturatododia.R;
 import br.com.natura.fiap.naturatododia.dao.DAO;
@@ -27,6 +32,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     TextView txtNome;
     EditText edTxtNome;
     TextView txtDataNascimento;
+    EditText edTxtDataNascimento;
     TextView txtSexo;
     EditText edTxtSexo;
     TextView txtCorPele;
@@ -53,6 +59,8 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
 
     Pessoa pessoa = new Pessoa();
 
+    SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yyyy" );
+
     public PerfilFragment() {
     }
 
@@ -75,6 +83,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         txtNome = (TextView) v.findViewById(R.id.txtNome);
         edTxtNome = (EditText) v.findViewById(R.id.edTxtNome);
         txtDataNascimento = (TextView) v.findViewById(R.id.txtDataNascimento);
+        edTxtDataNascimento = (EditText) v.findViewById(R.id.edTxtDataNascimento);
         txtSexo = (TextView) v.findViewById(R.id.txtSexo);
         edTxtSexo = (EditText) v.findViewById(R.id.edTxtSexo);
         txtCorPele = (TextView) v.findViewById(R.id.txtCorPele);
@@ -138,6 +147,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         txtNome.setVisibility(View.VISIBLE);
         edTxtNome.setVisibility(View.GONE);
         txtDataNascimento.setVisibility(View.VISIBLE);
+        edTxtDataNascimento.setVisibility(View.GONE);
         txtSexo.setVisibility(View.VISIBLE);
         edTxtSexo.setVisibility(View.GONE);
         txtCorPele.setVisibility(View.VISIBLE);
@@ -159,32 +169,37 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
 
     private void setToEdit(){
         if(isMeusDados){
-            txtNome.setVisibility(View.GONE);
             edTxtNome.setVisibility(View.VISIBLE);
             edTxtNome.setText(txtNome.getText());
+            txtNome.setVisibility(View.GONE);
 
-            txtSexo.setVisibility(View.GONE);
+            edTxtDataNascimento.setVisibility(View.VISIBLE);
+            edTxtDataNascimento.setText(txtDataNascimento.getText());
+            txtDataNascimento.setVisibility(View.GONE);
+
             edTxtSexo.setVisibility(View.VISIBLE);
             edTxtSexo.setText(txtSexo.getText());
+            txtSexo.setVisibility(View.GONE);
 
-            txtCorPele.setVisibility(View.GONE);
             edTxtCorPele.setVisibility(View.VISIBLE);
             edTxtCorPele.setText(txtCorPele.getText());
+            txtCorPele.setVisibility(View.GONE);
 
-            txtTipoPele.setVisibility(View.GONE);
             edTxtTipoPele.setVisibility(View.VISIBLE);
             edTxtTipoPele.setText(txtTipoPele.getText());
+            txtTipoPele.setVisibility(View.GONE);
 
-            txtTipoCabelo.setVisibility(View.GONE);
             edTxtTipoCabelo.setVisibility(View.VISIBLE);
             edTxtTipoCabelo.setText(txtTipoCabelo.getText());
+            txtTipoCabelo.setVisibility(View.GONE);
         }else{
-            txtTomFavorito.setVisibility(View.GONE);
             edTxtTomFavorito.setVisibility(View.VISIBLE);
             edTxtTomFavorito.setText(txtTomFavorito.getText());
-            txtFragFavorita.setVisibility(View.GONE);
+            txtTomFavorito.setVisibility(View.GONE);
+
             edTxtFragFavorita.setVisibility(View.VISIBLE);
             edTxtFragFavorita.setText(txtFragFavorita.getText());
+            txtFragFavorita.setVisibility(View.GONE);
         }
 
         btnEdit.setVisibility(View.GONE);
@@ -193,28 +208,36 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     }
 
     private void saveData(){
-        txtNome.setText(edTxtNome.getText());
-        txtSexo.setText(edTxtSexo.getText());
-        txtCorPele.setText(edTxtCorPele.getText());
-        txtTipoPele.setText(edTxtTipoPele.getText());
-        txtTipoCabelo.setText(edTxtTipoCabelo.getText());
+        if(isMeusDados) {
+            txtNome.setText(edTxtNome.getText());
+            txtDataNascimento.setText(edTxtDataNascimento.getText());
+            txtSexo.setText(edTxtSexo.getText());
+            txtCorPele.setText(edTxtCorPele.getText());
+            txtTipoPele.setText(edTxtTipoPele.getText());
+            txtTipoCabelo.setText(edTxtTipoCabelo.getText());
 
-        pessoa.setNome(edTxtNome.getText().toString());
-        pessoa.setSexo(edTxtSexo.getText().toString());
-        pessoa.setCorPele(edTxtCorPele.getText().toString());
-        pessoa.setTipoPele(edTxtTipoPele.getText().toString());
-        pessoa.setTipoCabelo(edTxtTipoCabelo.getText().toString());
+            pessoa.setNome(edTxtNome.getText().toString());
+            try {
+                pessoa.setDtNasci(sdf.parse(edTxtDataNascimento.getText().toString()));
+            } catch (ParseException e) {
+                Toast.makeText(ctx, "Formato de Data Inválido", Toast.LENGTH_SHORT).show();
+            }
+            pessoa.setSexo(edTxtSexo.getText().toString());
+            pessoa.setCorPele(edTxtCorPele.getText().toString());
+            pessoa.setTipoPele(edTxtTipoPele.getText().toString());
+            pessoa.setTipoCabelo(edTxtTipoCabelo.getText().toString());
 
-        txtTomFavorito.setText(edTxtTomFavorito.getText());
-        txtFragFavorita.setText(edTxtFragFavorita.getText());
+            PessoaDAO dao = new DAO(ctx).getPessoaDAO();
+            dao.atualizaCadastro(pessoa);
+        }else {
+            txtTomFavorito.setText(edTxtTomFavorito.getText());
+            txtFragFavorita.setText(edTxtFragFavorita.getText());
 
-        pessoa.getPreferencia().setTomFavorito(edTxtTomFavorito.getText().toString());
-        pessoa.getPreferencia().setFragFavorita(edTxtFragFavorita.getText().toString());
-
-        PessoaDAO dao = new DAO(ctx).getPessoaDAO();
-        dao.atualizaCadastro(pessoa);
-        PreferenciasDAO dao2 = new DAO(ctx).getPreferenciaDAO();
-        dao2.atualizaPreferencias(pessoa.getPreferencia());
+            pessoa.getPreferencia().setTomFavorito(edTxtTomFavorito.getText().toString());
+            pessoa.getPreferencia().setFragFavorita(edTxtFragFavorita.getText().toString());
+            PreferenciasDAO dao2 = new DAO(ctx).getPreferenciaDAO();
+            dao2.atualizaPreferencias(pessoa.getPreferencia());
+        }
     }
 
     private Pessoa getDadosPessoa(){

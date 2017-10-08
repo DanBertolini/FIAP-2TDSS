@@ -2,11 +2,11 @@ package br.com.natura.fiap.naturatododia.dao;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import br.com.natura.fiap.naturatododia.entity.Pessoa;
 
@@ -75,12 +75,15 @@ public class PessoaDAO extends SQLiteOpenHelper {
     }
 
     public void atualizaCadastro(Pessoa pessoa){
+        SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+
         String update = "UPDATE " + TABLE_PESSOA + " SET "
                 + NM_PESSOA + " = '" + pessoa.getNome() + "', "
+                + DT_NASCI + " = '" + sdf.format(pessoa.getDtNasci()) + "', "
                 + DS_SEXO + " = '" + pessoa.getSexo() + "', "
                 + DS_COR_PELE + " = '" + pessoa.getCorPele() + "', "
                 + DS_TIPO_PELE + " = '" + pessoa.getTipoPele() + "', "
-                + DS_TIPO_CABELO + " = '" + pessoa.getTipoCabelo() + "', "
+                + DS_TIPO_CABELO + " = '" + pessoa.getTipoCabelo() + "'"
                 + " WHERE " + ID + " = " + pessoa.getId();
 
         getWritableDatabase().execSQL(update);

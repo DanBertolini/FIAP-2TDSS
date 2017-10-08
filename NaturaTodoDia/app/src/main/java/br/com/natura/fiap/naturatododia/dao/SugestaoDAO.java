@@ -44,7 +44,7 @@ public class SugestaoDAO extends SQLiteOpenHelper {
         String createTable2 =  "CREATE TABLE " + TABLE_SUGESTAO_PRODUTO + "( "
                 + ID + " INTEGER,   "
                 + CD_PRODUTO + " INTEGER, "
-                + "PRIMARY KEY ("+ ID +"," + CD_PRODUTO + "), "
+                + "PRIMARY KEY ("+ ID +", " + CD_PRODUTO + "), "
                 + "FOREIGN KEY(" + ID + ") REFERENCES " + TABLE_SUGESTAO + "(" + ID + "), "
                 + "FOREIGN KEY(" + CD_PRODUTO + ") REFERENCES " + TABLE_PRODUTO + "(" + CD_PRODUTO + ") )";
 
@@ -63,7 +63,7 @@ public class SugestaoDAO extends SQLiteOpenHelper {
 
     public List<Sugestao> buscarSugestoesPorEvento(int idEvento){
         List<Sugestao> listSugest = new ArrayList<>();
-        String select =  "SELECT * FROM " + TABLE_SUGESTAO + "WHERE " + CD_EVENTO + " = " + idEvento;
+        String select =  "SELECT * FROM " + TABLE_SUGESTAO + " WHERE " + CD_EVENTO + " = " + idEvento;
         Cursor cursor = getReadableDatabase().rawQuery(select, null);
 
         try{
@@ -86,7 +86,7 @@ public class SugestaoDAO extends SQLiteOpenHelper {
 
     public List<Sugestao> buscarSugestoesSalvas(){
         List<Sugestao> listSugest = new ArrayList<>();
-        String select =  "SELECT * FROM " + TABLE_SUGESTAO + "WHERE " + IS_SALVO + " = " + 1;
+        String select =  "SELECT * FROM " + TABLE_SUGESTAO + " WHERE " + IS_SALVO + " = " + 1;
         Cursor cursor = getReadableDatabase().rawQuery(select, null);
 
         try{
@@ -110,7 +110,7 @@ public class SugestaoDAO extends SQLiteOpenHelper {
         List<Produto> prds = new ArrayList<>();
         String select =  "SELECT P." + CD_PRODUTO + ", P." + NM_PRODUTO + "FROM " + TABLE_SUGESTAO_PRODUTO +
                 " SG INNER JOIN " + TABLE_PRODUTO + " P " +
-                "ON SG." + CD_PRODUTO + "= P." + CD_PRODUTO + "WHERE " + ID + " = " + idSugestao;
+                "ON SG." + CD_PRODUTO + " = P." + CD_PRODUTO + " WHERE " + ID + " = " + idSugestao;
         Cursor cursor = getReadableDatabase().rawQuery(select, null);
 
         try{
@@ -133,7 +133,7 @@ public class SugestaoDAO extends SQLiteOpenHelper {
     public  void salvarSugestao(int idSugestao, String nomeSugestao, boolean salvo){
         String salva = "UPDATE " + TABLE_SUGESTAO + " SET "
                 + IS_SALVO + " = " + (salvo ? "1" : "0") + ", "
-                + NM_SUGESTAO + " = " + nomeSugestao
+                + NM_SUGESTAO + " = '" + nomeSugestao + "'"
                 + " WHERE " + ID + " = " + idSugestao;
 
         getWritableDatabase().execSQL(salva);

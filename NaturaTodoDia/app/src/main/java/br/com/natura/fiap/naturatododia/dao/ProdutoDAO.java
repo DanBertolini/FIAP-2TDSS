@@ -35,7 +35,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        String createTable = "CREATE TABLE " + TABLE_PRODUTO + "( "
+        String createTable = "CREATE TABLE " + TABLE_PRODUTO + " ( "
                 + ID + " INTEGER PRIMARY KEY, "
                 + NM_PRODUTO + " TEXT, "
                 + DS_PRODUTO + " TEXT, "
@@ -100,14 +100,14 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             if(cursor.moveToNext()){
                 String update = "UPDATE " + TABLE_PRODUTO +
                         "SET "
-                        + NM_PRODUTO + " = " + prd.getNome() + ", "
-                        + DS_PRODUTO + " = " + prd.getDescricao() + ", "
-                        + DS_TIPO + " = " + prd.getTipo() + ", "
-                        + DS_GENERO + " = " + prd.getGenero() + ", "
-                        + DS_COR + " = " + prd.getCor() + ", "
-                        + DS_TOM + " = " + prd.getTom() + ", "
-                        + FL_IMAGEM + " = " + prd.getImg() + ", "
-                        + DS_LINK + " = " + prd.getLink() + ", "
+                        + NM_PRODUTO + " = '" + prd.getNome() + "', "
+                        + DS_PRODUTO + " = '" + prd.getDescricao() + "', "
+                        + DS_TIPO + " = '" + prd.getTipo() + "', "
+                        + DS_GENERO + " = '" + prd.getGenero() + "', "
+                        + DS_COR + " = '" + prd.getCor() + "', "
+                        + DS_TOM + " = '" + prd.getTom() + "', "
+                        + FL_IMAGEM + " = '" + prd.getImg() + "', "
+                        + DS_LINK + " = '" + prd.getLink() + "', "
                         + VL_FPS + " = " + prd.getFps() + ", "
                         + HAS_BRILHO + " = " + (prd.isBrilho() ? "1" : "0") + ", "
                         + VL_PRECO + " = " + prd.getPreco() + ", "
@@ -131,18 +131,18 @@ public class ProdutoDAO extends SQLiteOpenHelper {
                         + VL_PRECO + ", "
                         + IS_ATIVO + ") VALUES ("
                         + prd.getId() + ", "
-                        + prd.getNome() + ", "
-                        + prd.getDescricao() + ", "
-                        + prd.getTipo() + ", "
-                        + prd.getGenero() + ", "
-                        + prd.getCor() + ", "
-                        + prd.getTom() + ", "
-                        + prd.getImg() + ", "
-                        + prd.getLink() + ", "
+                        + "'" + prd.getNome() + "', "
+                        + "'" + prd.getDescricao() + "', "
+                        + "'" + prd.getTipo() + "', "
+                        + "'" + prd.getGenero() + "', "
+                        + "'" + prd.getCor() + "', "
+                        + "'" + prd.getTom() + "', "
+                        + "'" + prd.getImg() + "', "
+                        + "'" + prd.getLink() + "', "
                         + prd.getFps() + ", "
                         + (prd.isBrilho() ? "1" : "0") + ", "
                         + prd.getPreco() + ", "
-                        + (prd.isAtivo() ? "1" : "0");
+                        + (prd.isAtivo() ? "1" : "0") + ")";
                 database.execSQL(insert);
             }
 

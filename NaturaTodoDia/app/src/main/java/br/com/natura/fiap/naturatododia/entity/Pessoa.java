@@ -1,6 +1,6 @@
 package br.com.natura.fiap.naturatododia.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Pessoa {
     private int id;

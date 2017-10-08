@@ -19,11 +19,13 @@ public class DAO extends SQLiteOpenHelper {
     private static final String DATABASE = "NATURA";
     private Context context;
 
+    private SQLiteDatabase db;
+
     public  DAO(Context context){
 
         super(context, DATABASE, null, VERSAO);
         this.context = context;
-
+        db = getReadableDatabase();
     }
 
     @Override
@@ -62,17 +64,6 @@ public class DAO extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, int versaoantiga, int versaonova) {
         onCreate(database);
-    }
-
-    public void iniciaTabelas(){
-
-        SQLiteDatabase database = getReadableDatabase();
-
-        onCreate(database);
-    }
-
-    public DataEspecialDAO getDataEspecialDAO(){
-        return new DataEspecialDAO(this.context, DATABASE, VERSAO);
     }
 
     public EventoDAO getEventoDAO(){

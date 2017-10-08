@@ -1,7 +1,7 @@
 package br.com.natura.fiap.naturatododia.entity;
 
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Evento {
     private int id;

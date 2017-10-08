@@ -3,6 +3,7 @@ package br.com.natura.fiap.naturatododia.main;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -94,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         btnSave = (ImageButton) findViewById(R.id.btnSave);
         btnUnsave = (ImageButton) findViewById(R.id.btnUnsave);
 
-        atualizaProdutos();
+        //atualizaProdutos();
     }
 
     @Override
@@ -136,6 +138,14 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation, menu);
         //getMenuInflater().inflate(R.menu.evento_menu, menu);
+
+        //if there a focus on a textbox hide the keyboard
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+
         return true;
     }
 
@@ -147,6 +157,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(final MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentManager fm = getFragmentManager();
@@ -271,8 +282,8 @@ public class MainActivity extends AppCompatActivity
                         Produto prd = new Produto();
                         idProduto = obj.getInt("id");
                         prd.setId(idProduto);
-                        prd.setNome(obj.getString("nome"));
-                        prd.setDescricao(obj.getString("descricao"));
+                        prd.setNome(obj.getString("nome").replace("'", " "));
+                        prd.setDescricao(obj.getString("descricao").replace("'", " "));
                         prd.setTipo(obj.getString("tipo"));
                         prd.setGenero(obj.getString("genero"));
                         prd.setCor(obj.getString("cor"));
