@@ -231,15 +231,15 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/lblFragFavorita"
+            android:id="@+id/lblAromaFavorita"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_below="@id/lblTomFavorito"
-            android:text="Fragância Favorita" />
+            android:text="Aroma Favorito" />
 
         <TextView
-            android:id="@+id/txtFragFavorita"
+            android:id="@+id/txtAromaFavorita"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtTomFavorito"
@@ -247,12 +247,12 @@
             android:layout_alignParentEnd="true"
             android:text="info 2" />
         <EditText
-            android:id="@+id/edTxtFragFavorita"
+            android:id="@+id/edTxtAromaFavorita"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/edTxtTomFavorito"
-            android:hint="Fragância Favorita"
+            android:hint="Aroma Favorito"
             android:layout_marginTop="-10dp"
             android:inputType="text"
             android:visibility="gone"/>

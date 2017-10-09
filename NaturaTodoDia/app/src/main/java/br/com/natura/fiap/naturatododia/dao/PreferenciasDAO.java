@@ -12,7 +12,7 @@ public class PreferenciasDAO extends SQLiteOpenHelper {
     private static final  String TABLE_PREFERENCIAS = "PREFERENCIAS";
     private static final  String ID = "cd_preferencias_pessoa";
     private static final  String DS_TOM_FAVORITO = "ds_tom_favorito";
-    private static final  String DS_FRAGANCIA_FAVORITO = "ds_fragancia_favorita";
+    private static final  String DS_AROMA_FAVORITO = "ds_aroma_favorita";
     private static final String CD_PESSOA = "cd_pessoa";
     private static final String TABLE_PESSOA = "PESSOA";
 
@@ -26,7 +26,7 @@ public class PreferenciasDAO extends SQLiteOpenHelper {
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + CD_PESSOA + " INTEGER, "
                 + DS_TOM_FAVORITO + " TEXT, "
-                + DS_FRAGANCIA_FAVORITO + " TEXT, "
+                + DS_AROMA_FAVORITO + " TEXT, "
                 + "FOREIGN KEY(" + CD_PESSOA + ") REFERENCES "+ TABLE_PESSOA + "(" + CD_PESSOA + "))";
 
         database.execSQL(createTable);
@@ -51,7 +51,7 @@ public class PreferenciasDAO extends SQLiteOpenHelper {
             while (cursor.moveToNext()){
                 pref.setId(cursor.getInt(0));
                 pref.setTomFavorito(cursor.getString(2));
-                pref.setFragFavorita(cursor.getString(3));
+                pref.setAromaFavorita(cursor.getString(3));
             }
 
         }catch(Exception e){
@@ -66,7 +66,7 @@ public class PreferenciasDAO extends SQLiteOpenHelper {
     public void atualizaPreferencias(Preferencia preferencias){
         String update = "UPDATE " + TABLE_PREFERENCIAS + " SET "
                 + DS_TOM_FAVORITO + " = '" + preferencias.getTomFavorito() +"', "
-                + DS_FRAGANCIA_FAVORITO + " = '" + preferencias.getFragFavorita() + "'"
+                + DS_AROMA_FAVORITO + " = '" + preferencias.getAromaFavorita() + "'"
                 + " WHERE " + ID + " = " + preferencias.getId();
 
         getWritableDatabase().execSQL(update);

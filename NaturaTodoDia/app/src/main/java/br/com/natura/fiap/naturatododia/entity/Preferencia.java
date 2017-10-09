@@ -4,7 +4,7 @@ public class Preferencia {
     private int id;
     private String nome;
     private String tomFavorito;
-    private String fragFavorita;
+    private String aromaFavorita;
 
     public int getId() {
         return id;
@@ -30,11 +30,11 @@ public class Preferencia {
         this.tomFavorito = tomFavorito;
     }
 
-    public String getFragFavorita() {
-        return fragFavorita;
+    public String getAromaFavorita() {
+        return aromaFavorita;
     }
 
-    public void setFragFavorita(String fragFavorita) {
-        this.fragFavorita = fragFavorita;
+    public void setAromaFavorita(String fragFavorita) {
+        this.aromaFavorita = fragFavorita;
     }
 }

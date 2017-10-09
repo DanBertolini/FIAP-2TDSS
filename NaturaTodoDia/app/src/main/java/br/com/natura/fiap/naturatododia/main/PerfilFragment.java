@@ -46,8 +46,8 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     TextView preferenciasTab;
     TextView txtTomFavorito;
     EditText edTxtTomFavorito;
-    TextView txtFragFavorita;
-    EditText edTxtFragFavorita;
+    TextView txtAromaFavorita;
+    EditText edTxtAromaFavorita;
 
     FloatingActionButton btnEdit;
     FloatingActionButton btnSave;
@@ -98,8 +98,8 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         preferenciasTab.setOnClickListener(this);
         txtTomFavorito = (TextView) v.findViewById(R.id.txtTomFavorito);
         edTxtTomFavorito = (EditText) v.findViewById(R.id.edTxtTomFavorito);
-        txtFragFavorita = (TextView) v.findViewById(R.id.txtFragFavorita);
-        edTxtFragFavorita = (EditText) v.findViewById(R.id.edTxtFragFavorita);
+        txtAromaFavorita = (TextView) v.findViewById(R.id.txtAromaFavorita);
+        edTxtAromaFavorita = (EditText) v.findViewById(R.id.edTxtAromaFavorita);
 
         btnEdit = (FloatingActionButton) v.findViewById(R.id.btnEdit);
         btnEdit.setOnClickListener(this);
@@ -159,8 +159,8 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
 
         txtTomFavorito.setVisibility(View.VISIBLE);
         edTxtTomFavorito.setVisibility(View.GONE);
-        txtFragFavorita.setVisibility(View.VISIBLE);
-        edTxtFragFavorita.setVisibility(View.GONE);
+        txtAromaFavorita.setVisibility(View.VISIBLE);
+        edTxtAromaFavorita.setVisibility(View.GONE);
 
         btnEdit.setVisibility(View.VISIBLE);
         btnSave.setVisibility(View.GONE);
@@ -197,9 +197,9 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
             edTxtTomFavorito.setText(txtTomFavorito.getText());
             txtTomFavorito.setVisibility(View.GONE);
 
-            edTxtFragFavorita.setVisibility(View.VISIBLE);
-            edTxtFragFavorita.setText(txtFragFavorita.getText());
-            txtFragFavorita.setVisibility(View.GONE);
+            edTxtAromaFavorita.setVisibility(View.VISIBLE);
+            edTxtAromaFavorita.setText(txtAromaFavorita.getText());
+            txtAromaFavorita.setVisibility(View.GONE);
         }
 
         btnEdit.setVisibility(View.GONE);
@@ -231,10 +231,10 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
             dao.atualizaCadastro(pessoa);
         }else {
             txtTomFavorito.setText(edTxtTomFavorito.getText());
-            txtFragFavorita.setText(edTxtFragFavorita.getText());
+            txtAromaFavorita.setText(edTxtAromaFavorita.getText());
 
             pessoa.getPreferencia().setTomFavorito(edTxtTomFavorito.getText().toString());
-            pessoa.getPreferencia().setFragFavorita(edTxtFragFavorita.getText().toString());
+            pessoa.getPreferencia().setAromaFavorita(edTxtAromaFavorita.getText().toString());
             PreferenciasDAO dao2 = new DAO(ctx).getPreferenciaDAO();
             dao2.atualizaPreferencias(pessoa.getPreferencia());
         }
