@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,37 +77,50 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
 
         pessoa = getDadosPessoa();
         pessoa.setPreferencia(getPreferenciasPessoa());
+        if(pessoa != null) {
+            try {
+                dadosLayout = (RelativeLayout) v.findViewById(R.id.dadosLayout);
+                dadosTab = (TextView) v.findViewById(R.id.dadosTab);
+                dadosTab.setOnClickListener(this);
+                txtNome = (TextView) v.findViewById(R.id.txtNome);
+                txtNome.setText(pessoa.getNome());
+                edTxtNome = (EditText) v.findViewById(R.id.edTxtNome);
+                txtDataNascimento = (TextView) v.findViewById(R.id.txtDataNascimento);
+                txtDataNascimento.setText(sdf.format(pessoa.getDtNasci()));
+                edTxtDataNascimento = (EditText) v.findViewById(R.id.edTxtDataNascimento);
+                txtSexo = (TextView) v.findViewById(R.id.txtSexo);
+                txtSexo.setText(pessoa.getSexo());
+                edTxtSexo = (EditText) v.findViewById(R.id.edTxtSexo);
+                txtCorPele = (TextView) v.findViewById(R.id.txtCorPele);
+                txtCorPele.setText(pessoa.getCorPele());
+                edTxtCorPele = (EditText) v.findViewById(R.id.edTxtCorPele);
+                txtTipoPele = (TextView) v.findViewById(R.id.txtTipoPele);
+                txtTipoPele.setText(pessoa.getTipoPele());
+                edTxtTipoPele = (EditText) v.findViewById(R.id.edTxtTipoPele);
+                txtTipoCabelo = (TextView) v.findViewById(R.id.txtTipoCabelo);
+                txtTipoCabelo.setText(pessoa.getTipoCabelo());
+                edTxtTipoCabelo = (EditText) v.findViewById(R.id.edTxtTipoCabelo);
 
-        dadosLayout = (RelativeLayout) v.findViewById(R.id.dadosLayout);
-        dadosTab = (TextView) v.findViewById(R.id.dadosTab);
-        dadosTab.setOnClickListener(this);
-        txtNome = (TextView) v.findViewById(R.id.txtNome);
-        edTxtNome = (EditText) v.findViewById(R.id.edTxtNome);
-        txtDataNascimento = (TextView) v.findViewById(R.id.txtDataNascimento);
-        edTxtDataNascimento = (EditText) v.findViewById(R.id.edTxtDataNascimento);
-        txtSexo = (TextView) v.findViewById(R.id.txtSexo);
-        edTxtSexo = (EditText) v.findViewById(R.id.edTxtSexo);
-        txtCorPele = (TextView) v.findViewById(R.id.txtCorPele);
-        edTxtCorPele = (EditText) v.findViewById(R.id.edTxtCorPele);
-        txtTipoPele = (TextView) v.findViewById(R.id.txtTipoPele);
-        edTxtTipoPele = (EditText) v.findViewById(R.id.edTxtTipoPele);
-        txtTipoCabelo = (TextView) v.findViewById(R.id.txtTipoCabelo);
-        edTxtTipoCabelo = (EditText) v.findViewById(R.id.edTxtTipoCabelo);
+                preferenciasLayout = (RelativeLayout) v.findViewById(R.id.preferenciasLayout);
+                preferenciasTab = (TextView) v.findViewById(R.id.preferenciasTab);
+                preferenciasTab.setOnClickListener(this);
+                txtTomFavorito = (TextView) v.findViewById(R.id.txtTomFavorito);
+                txtTomFavorito.setText(pessoa.getPreferencia().getTomFavorito());
+                edTxtTomFavorito = (EditText) v.findViewById(R.id.edTxtTomFavorito);
+                txtAromaFavorita = (TextView) v.findViewById(R.id.txtAromaFavorita);
+                txtAromaFavorita.setText(pessoa.getPreferencia().getAromaFavorita());
+                edTxtAromaFavorita = (EditText) v.findViewById(R.id.edTxtAromaFavorita);
 
-        preferenciasLayout = (RelativeLayout) v.findViewById(R.id.preferenciasLayout);
-        preferenciasTab = (TextView) v.findViewById(R.id.preferenciasTab);
-        preferenciasTab.setOnClickListener(this);
-        txtTomFavorito = (TextView) v.findViewById(R.id.txtTomFavorito);
-        edTxtTomFavorito = (EditText) v.findViewById(R.id.edTxtTomFavorito);
-        txtAromaFavorita = (TextView) v.findViewById(R.id.txtAromaFavorita);
-        edTxtAromaFavorita = (EditText) v.findViewById(R.id.edTxtAromaFavorita);
-
-        btnEdit = (FloatingActionButton) v.findViewById(R.id.btnEdit);
-        btnEdit.setOnClickListener(this);
-        btnSave = (FloatingActionButton) v.findViewById(R.id.btnSave);
-        btnSave.setOnClickListener(this);
-        btnCancel = (FloatingActionButton) v.findViewById(R.id.btnCancel);
-        btnCancel.setOnClickListener(this);
+                btnEdit = (FloatingActionButton) v.findViewById(R.id.btnEdit);
+                btnEdit.setOnClickListener(this);
+                btnSave = (FloatingActionButton) v.findViewById(R.id.btnSave);
+                btnSave.setOnClickListener(this);
+                btnCancel = (FloatingActionButton) v.findViewById(R.id.btnCancel);
+                btnCancel.setOnClickListener(this);
+            }catch (Exception e){
+                Log.e("ERROR", e.getMessage());
+            }
+        }
 
         return v;
     }
@@ -117,12 +131,12 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
             setSelectedTab(preferenciasTab, dadosTab);
             isMeusDados = true;
             dadosLayout.setVisibility(View.VISIBLE);
-            preferenciasLayout.setVisibility(View.GONE);
+            preferenciasLayout.setVisibility(View.INVISIBLE);
             defaultView();
         } else if (v.getId() == R.id.preferenciasTab) {
             setSelectedTab(dadosTab, preferenciasTab);
             isMeusDados = false;
-            dadosLayout.setVisibility(View.GONE);
+            dadosLayout.setVisibility(View.INVISIBLE);
             preferenciasLayout.setVisibility(View.VISIBLE);
             defaultView();
         } else if (v.getId() == R.id.btnEdit) {

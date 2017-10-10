@@ -38,7 +38,7 @@ public class SalvosFragment extends Fragment implements AdapterView.OnItemClickL
         sugestoesAdp = new ArrayAdapter<>(v.getContext(),
                 android.R.layout.simple_list_item_1,
                 sugestoes);
-        listFavoritos = (ListView) v.findViewById(R.id.listSugestoes);
+        listFavoritos = (ListView) v.findViewById(R.id.listFavoritos);
         listFavoritos.setAdapter(sugestoesAdp);
         listFavoritos.setOnItemClickListener(this);
 

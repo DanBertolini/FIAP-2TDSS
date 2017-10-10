@@ -47,8 +47,8 @@ public class ProdutoDAO extends SQLiteOpenHelper {
                 + DS_LINK + " TEXT, "
                 + VL_FPS + " INTEGER, "
                 + HAS_BRILHO + " INTEGER DEFAULT 0,"
-                + VL_PRECO + "REAL,"
-                + IS_ATIVO + "INTEGER DEFAULT 1)";
+                + VL_PRECO + " REAL,"
+                + IS_ATIVO + " INTEGER DEFAULT 1)";
 
         database.execSQL(createTable);
     }
@@ -63,7 +63,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
 
     public Produto buscarProduto(int id){
         Produto prod = new Produto();
-        String select =  "SELECT * FROM " + TABLE_PRODUTO + "WHERE " + ID + " = " + id;
+        String select =  "SELECT * FROM " + TABLE_PRODUTO + " WHERE " + ID + " = " + id;
         Cursor cursor = getReadableDatabase().rawQuery(select, null);
 
         try{
@@ -148,6 +148,82 @@ public class ProdutoDAO extends SQLiteOpenHelper {
 
         }catch (Exception e){
             Log.e("DB-ERRO", "Erro ao incluir/atualizar produto");
+        }
+    }
+
+    public void createMock(SQLiteDatabase db){
+        try {
+            String insert = "INSERT INTO " + TABLE_PRODUTO +
+                    "("
+                    + ID + ", "
+                    + NM_PRODUTO + ", "
+                    + DS_PRODUTO + ", "
+                    + DS_TIPO + ", "
+                    + DS_GENERO + ", "
+                    + DS_COR + ", "
+                    + DS_TOM + ", "
+                    + FL_IMAGEM + ", "
+                    + DS_LINK + ", "
+                    + VL_FPS + ", "
+                    + HAS_BRILHO + ", "
+                    + VL_PRECO + ", "
+                    + IS_ATIVO + ") VALUES ("
+                    + 6 + ", "
+                    + "'Batom Extreme Matific', "
+                    + "'Com acabamento super matte, o Batom extreme matific traz alta performance e longa duração. " +
+                    "Dermatologicamente testado, ele mantém os lábios hidratados e com textura macia. Conteúdo: " +
+                    "3,5g. Benefícios: Efeito matte com longa duração.', "
+                    + "'Batom', "
+                    + "'F', "
+                    + "'Rouge 11-M, Violeta 7-M, Nude 7-M, Violeta 4-M', "
+                    + "'Escuro', "
+                    + "'prd_6.jpg', "
+                    + "'http://www.natura.com.br/p/batom-extreme-matific-fps-15-una-64319', "
+                    + 15 + ", "
+                    + 0 + ", "
+                    + 45.9 + ", "
+                    + 1 + ")";
+            db.execSQL(insert);
+
+            insert = "INSERT INTO " + TABLE_PRODUTO +
+                    "("
+                    + ID + ", "
+                    + NM_PRODUTO + ", "
+                    + DS_PRODUTO + ", "
+                    + DS_TIPO + ", "
+                    + DS_GENERO + ", "
+                    + DS_COR + ", "
+                    + DS_TOM + ", "
+                    + FL_IMAGEM + ", "
+                    + DS_LINK + ", "
+                    + VL_FPS + ", "
+                    + HAS_BRILHO + ", "
+                    + VL_PRECO + ", "
+                    + IS_ATIVO + ") VALUES ("
+                    + 14 + ", "
+                    + "'Sombra Ultrapigmento Natura Una', "
+                    + "'Natura Una traz um novo lançamento: a Sombra Ultrapigmento, que tem cor intensa desde a " +
+                    "primeira aplicação, com 12 horas de duração, sem necessitar de retoques ao longo do dia." +
+                    " Sua textura cremosa além de garantir a fixação na pele, possibilita melhor aderência e é" +
+                    " facilmente aplicável, evitando que a cor acumule nos vincos. As sombras Ultra Pigmento " +
+                    "permitem dois tipos de efeitos: uma cor intensa com pincel seco e superintensa com pincel " +
+                    "molhado. Natura Una é uma linha que traz a combinação ideal entre alta performance e " +
+                    "ingredientes naturais, com tecnologia inovadora e cores intensas. Revele a sua beleza com a nova" +
+                    " Sombra ultrapigmento e expresse através do seu olhar. Conteúdo: 3,6g. Benefícios: Maquiagem, com alta " +
+                    "fixação e longa duração.', "
+                    + "'Sombra', "
+                    + "'F', "
+                    + "'Várias', "
+                    + "'Médio', "
+                    + "'prd_14.jpg', "
+                    + "'http://www.natura.com.br/p/sombra-ultrapigmento-natura-una-36g-51301', "
+                    + 0 + ", "
+                    + 0 + ", "
+                    + 76.9 + ", "
+                    + 1 + ")";
+            db.execSQL(insert);
+        }catch (Exception e){
+            Log.e("ERRO", e.getMessage());
         }
     }
 

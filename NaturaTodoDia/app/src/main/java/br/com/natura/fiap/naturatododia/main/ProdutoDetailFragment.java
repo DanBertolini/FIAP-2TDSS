@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -27,6 +28,8 @@ public class ProdutoDetailFragment extends Fragment{
     TextView txtLink;
     TextView txtPreco;
     TextView txtDescricao;
+    ImageView imgProduto;
+
     public ProdutoDetailFragment() {
     }
 
@@ -59,16 +62,26 @@ public class ProdutoDetailFragment extends Fragment{
         txtPreco = (TextView) v.findViewById(R.id.txtPreco);
         txtDescricao = (TextView) v.findViewById(R.id.txtDescricao);
 
+        imgProduto = (ImageView) v.findViewById(R.id.imgProduto);
         if(produto != null){
             txtNome.setText(produto.getNome());
             txtTipoProd.setText(produto.getTipo());
             txtCores.setText(produto.getCor());
             txtTom.setText(produto.getTom());
-            txtFPS.setText(produto.getFps());
+            txtFPS.setText(String.valueOf(produto.getFps()));
             txtBrilho.setText(produto.isBrilho() ? "Sim": "Não");
             txtLink.setText(produto.getLink());
             txtPreco.setText("R$ " + produto.getPreco());
             txtDescricao.setText(produto.getDescricao());
+
+            try{
+                MainActivity instanceOfClass = new MainActivity();
+                String packageName = instanceOfClass.getClass().getPackage().getName();
+                int resImage = getResources().getIdentifier(produto.getImg() , "drawable", packageName);
+                imgProduto.setImageResource(resImage);
+            }   catch (Exception e){
+                Log.e("ERRO", e.getMessage());
+            }
         }
 
         return v;

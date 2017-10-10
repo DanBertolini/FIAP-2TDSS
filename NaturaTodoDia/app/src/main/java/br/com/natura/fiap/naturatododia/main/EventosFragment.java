@@ -88,7 +88,7 @@ public class EventosFragment extends Fragment implements View.OnClickListener, A
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Evento ev = (Evento) parent.getSelectedItem();
+        Evento ev = (Evento) listEventos.getItemAtPosition(position);
 
         SugestoesFragment sugestsFragment = new SugestoesFragment();
         Bundle arguments = new Bundle();

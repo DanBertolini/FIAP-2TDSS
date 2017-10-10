@@ -29,6 +29,7 @@ public class SugestoesFragment extends Fragment implements View.OnClickListener,
     ImageButton btnDetalhesEvento;
 
     String nomeEvento;
+    int idEvento;
 
     public SugestoesFragment() {
     }
@@ -42,7 +43,7 @@ public class SugestoesFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.sugestoes_layout, container, false);
         MainActivity mainActivity = ((MainActivity)getActivity());
-        int idEvento = 0;
+        idEvento = 0;
         try {
             idEvento = getArguments().getInt("idEvento");
             nomeEvento = getArguments().getString("evtName");
@@ -74,6 +75,8 @@ public class SugestoesFragment extends Fragment implements View.OnClickListener,
             DetalhamentoEventoFragment detalhamentoEventoFragment = new DetalhamentoEventoFragment();
             Bundle arguments = new Bundle();
             arguments.putString("evtName", nomeEvento);
+            arguments.putInt("idEvento", idEvento);
+
             detalhamentoEventoFragment.setArguments(arguments);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -86,10 +89,12 @@ public class SugestoesFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Sugestao sugest = (Sugestao) parent.getSelectedItem();
+        Sugestao sugest = (Sugestao) listSugestoes.getItemAtPosition(position);
         btnDetalhesEvento.setVisibility(View.INVISIBLE);
         ProdutosFragment prodsFragment = new ProdutosFragment();
         Bundle arguments = new Bundle();
+
+        arguments.putBoolean("isSalvo", sugest.isSalvo());
         arguments.putInt("idSugestao", sugest.getId());
         arguments.putString("sugestName", sugest.getNome());
         prodsFragment.setArguments(arguments);

@@ -54,9 +54,11 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
         View v = inflater.inflate(R.layout.produtos_layout, container, false);
         MainActivity mainActivity = ((MainActivity)getActivity());
         idSugestao = 0;
+        boolean isSalvo = false;
         try{
             idSugestao = getArguments().getInt("idSugestao");
             nomeSugestao = getArguments().getString("sugestName");
+            isSalvo = getArguments().getBoolean("isSalvo");
             mainActivity.getSupportActionBar().setTitle(nomeSugestao);
         }catch (Exception e){
             Log.e("ERRO", "Erro ao carregar titulo");
@@ -67,6 +69,11 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
         btnSave.setOnClickListener(this);
         btnUnsave = (ImageButton) mainActivity.findViewById(R.id.btnUnsave);
         btnUnsave.setOnClickListener(this);
+
+        if(isSalvo){
+            btnSave.setVisibility(View.GONE);
+            btnUnsave.setVisibility(View.VISIBLE);
+        }
 
         produtos = listarProdutosSugestao(idSugestao, v.getContext());
 
@@ -103,7 +110,7 @@ public class ProdutosFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Produto prd = (Produto) parent.getSelectedItem();
+        Produto prd = (Produto) listProdutos.getItemAtPosition(position);
         ProdutoDetailFragment prodFragment = new ProdutoDetailFragment();
         Bundle arguments = new Bundle();
         arguments.putString("prodName", prd.getNome());

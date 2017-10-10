@@ -4,9 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import br.com.natura.fiap.naturatododia.entity.Pessoa;
 
@@ -87,6 +89,30 @@ public class PessoaDAO extends SQLiteOpenHelper {
                 + " WHERE " + ID + " = " + pessoa.getId();
 
         getWritableDatabase().execSQL(update);
+    }
+
+    public void createMock(SQLiteDatabase db){
+        try{
+            SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+
+            String insert = "INSERT INTO  " + TABLE_PESSOA + " ("
+                    + NM_PESSOA + ","
+                    + DT_NASCI + ","
+                    + DS_SEXO + ","
+                    + DS_COR_PELE + ","
+                    + DS_TIPO_PELE + ","
+                    + DS_TIPO_CABELO +  ") VALUES ("
+                    + "'Isabela Tavares',"
+                    + "'1984-10-23 12:00:00',"
+                    + "'Feminino',"
+                    + "'Branca',"
+                    + "'Oleosa',"
+                    + "'Liso'" + ")";
+
+            db.execSQL(insert);
+        }catch (Exception e){
+            Log.e("ERRO", e.getMessage());
+        }
     }
 
 }

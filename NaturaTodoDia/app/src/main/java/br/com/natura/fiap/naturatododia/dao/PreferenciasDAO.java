@@ -5,6 +5,9 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.GregorianCalendar;
 
 import br.com.natura.fiap.naturatododia.entity.Preferencia;
 
@@ -22,6 +25,7 @@ public class PreferenciasDAO extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database){
+
         String createTable =  "CREATE TABLE " + TABLE_PREFERENCIAS + " ( "
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + CD_PESSOA + " INTEGER, "
@@ -70,6 +74,37 @@ public class PreferenciasDAO extends SQLiteOpenHelper {
                 + " WHERE " + ID + " = " + preferencias.getId();
 
         getWritableDatabase().execSQL(update);
+    }
+
+    public void createMock(SQLiteDatabase db){
+        try{
+            int codPessoa = 0;
+            String select =  "SELECT " + CD_PESSOA + " FROM " + TABLE_PESSOA;
+            Cursor cursor = db.rawQuery(select, null);
+            try{
+
+                if (cursor.moveToNext()){
+                    codPessoa = cursor.getInt(0);
+                }
+
+            }catch(Exception e){
+            }
+            finally{
+                cursor.close();
+            }
+
+            String insert = "INSERT INTO  " + TABLE_PREFERENCIAS + " ("
+                    + CD_PESSOA + ","
+                    + DS_TOM_FAVORITO + ","
+                    + DS_AROMA_FAVORITO + ") VALUES ("
+                    + codPessoa + ","
+                    + "'Citricos'"
+                    + "'Claros'" + ")";
+
+            db.execSQL(insert);
+        }catch (Exception e){
+            Log.e("ERRO", e.getMessage());
+        }
     }
 
 }

@@ -7,21 +7,20 @@
 
     <TextView
         android:id="@+id/lblDtEvento"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Data do Evento" />
 
     <TextView
         android:id="@+id/txtDtEvento"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
         android:layout_alignParentEnd="true"
         android:text="info 1" />
 
     <TextView
         android:id="@+id/lblTipoEvento"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblDtEvento"
         android:layout_marginTop="50dp"
@@ -29,17 +28,16 @@
 
     <TextView
         android:id="@+id/txtTipoEvento"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_below="@id/txtDtEvento"
-        android:layout_marginEnd="100dp"
         android:layout_alignParentEnd="true"
         android:text="info 2" />
 
     <TextView
         android:id="@+id/lblEstacao"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblTipoEvento"
         android:layout_marginTop="50dp"
@@ -47,17 +45,16 @@
 
     <TextView
         android:id="@+id/txtEstacao"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_below="@id/txtTipoEvento"
-        android:layout_marginEnd="100dp"
         android:layout_alignParentEnd="true"
         android:text="info 3" />
 
     <TextView
         android:id="@+id/lblPeriodo"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblEstacao"
         android:layout_marginTop="50dp"
@@ -65,17 +62,16 @@
 
     <TextView
         android:id="@+id/txtPeriodo"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_below="@id/txtEstacao"
-        android:layout_marginEnd="100dp"
         android:layout_alignParentEnd="true"
         android:text="info 4" />
 
     <TextView
         android:id="@+id/lblDescricao"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblPeriodo"
         android:layout_marginTop="50dp"
@@ -83,11 +79,10 @@
 
     <TextView
         android:id="@+id/txtDescricao"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_below="@id/txtPeriodo"
-        android:layout_marginEnd="100dp"
         android:layout_alignParentEnd="true"
         android:text="info 5" />
 </RelativeLayout>

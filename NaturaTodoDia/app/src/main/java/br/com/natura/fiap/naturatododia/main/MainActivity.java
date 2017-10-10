@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity
         btnDetalhesEvento = (ImageButton) findViewById(R.id.btnDetalhesEvento);
         btnSave = (ImageButton) findViewById(R.id.btnSave);
         btnUnsave = (ImageButton) findViewById(R.id.btnUnsave);
+        DAO dao = new DAO(getApplicationContext());
 
         //atualizaProdutos();
     }

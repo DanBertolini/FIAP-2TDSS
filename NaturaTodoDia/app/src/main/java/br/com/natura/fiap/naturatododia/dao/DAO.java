@@ -15,7 +15,7 @@ public class DAO extends SQLiteOpenHelper {
     private static final String TABLE_PREFERENCIAS = "PREFERENCIAS";
     private static final String TABLE_PESSOA = "PESSOA";
 
-    private static final int VERSAO  = 1;
+    private static final int VERSAO  = 6;
     private static final String DATABASE = "NATURA";
     private Context context;
 
@@ -59,6 +59,8 @@ public class DAO extends SQLiteOpenHelper {
         eventoDAO.onCreate(database);
         SugestaoDAO sugestDAO = new SugestaoDAO(this.context, DATABASE, VERSAO);
         sugestDAO.onCreate(database);
+        db = database;
+        createMock();
     }
 
     @Override
@@ -84,5 +86,18 @@ public class DAO extends SQLiteOpenHelper {
 
     public SugestaoDAO getSugestaoDAO(){
         return new SugestaoDAO(this.context, DATABASE, VERSAO);
+    }
+
+    private void createMock(){
+
+        db.beginTransaction();
+        getProdutoDAO().createMock(db);
+        getPessoaDAO().createMock(db);
+        getPreferenciaDAO().createMock(db);
+        getEventoDAO().createMock(db);
+        getSugestaoDAO().createMock(db);
+        getSugestaoDAO().createMock2(db);
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 }

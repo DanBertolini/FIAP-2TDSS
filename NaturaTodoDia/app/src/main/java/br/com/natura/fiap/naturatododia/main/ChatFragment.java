@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,14 +124,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Text
                 .inputText(input).context(context).build();
 
         //cannot use the following as it will attempt to run on the UI thread and crash
-//    MessageResponse response = conversationService.message(workspaceId, newMessage).execute();
+        //MessageResponse response = conversationService.message(workspaceId, newMessage).execute();
 
         //use the following so it runs on own async thread
         //then when get a response it calls displayMsg that will update the UI
         conversationService.message(workspaceId, newMessage).enqueue(new ServiceCallback<MessageResponse>() {
             @Override
             public void onResponse(MessageResponse response) {
-                //output to system log output, just for verification/checking
                 System.out.println(response);
                 displayMsg(response);
             }
@@ -141,7 +141,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Text
         });
     }
 
-    public void displayMsg(MessageResponse msg)
+    public void displayMsg(final MessageResponse msg)
     {
         final MessageResponse mssg=msg;
         handler.post(new Runnable() {
@@ -152,54 +152,16 @@ public class ChatFragment extends Fragment implements View.OnClickListener, Text
                 //from the WCS API response
                 //https://www.ibm.com/watson/developercloud/conversation/api/v1/?java#send_message
                 //extract the text from output to display to the user
-                String text = mssg.getText().get(0);
+                for (int i = 0; i < mssg.getText().size(); i++) {
+                    msgsAdapter.add(new ChatMessage(mssg.getText().get(i), true));
+                }
 
-                //now output the text to the UI to show the chat history
-                msgsAdapter.add(new ChatMessage(text, true));
                 msgListView.smoothScrollToPosition(msgsAdapter.getCount() - 1);
 
-                //set the context, so that the next time we call WCS we pass the accumulated context
+
                 context = mssg.getContext();
 
-                //rather than converting response to a JSONObject and parsing through it
-                //we can use the APIs for the MessageResponse .getXXXXX() to get the values as shown above
-                //keeping the following just in case need this at a later date
-                //
-                //          https://developer.android.com/reference/org/json/JSONObject.html
-/*
-          JSONObject jObject = new JSONObject(mssg);
-          JSONObject jsonOutput = jObject.getJSONObject("output");
-          JSONArray jArray1 = jsonOutput.getJSONArray("text");
-          for (int i=0; i < jArray1.length(); i++)
-          {
-            try {
-              String textContent = String.valueOf(jArray1.getString(i));
-              System.out.println(textContent);
-              msgList.add(textContent);
-              msgView.setAdapter(msgList);
-              msgView.smoothScrollToPosition(msgList.getCount() - 1);
-            } catch (JSONException e) {
-              // Oops
-              System.out.println(e);
-            }
-          }
-          JSONArray jArray2 = jObject.getJSONArray("intents");
-          for (int i=0; i < jArray2.length(); i++)
-          {
-            try {
-              JSONObject oneObject = jArray2.getJSONObject(i);
-              // Pulling items from the array
-              String oneObjectsItem = oneObject.getString("confidence");
-              String oneObjectsItem2 = oneObject.getString("intent");
-              String jOutput = oneObjectsItem+" : "+oneObjectsItem2;
-              msgList.add(jOutput);
-              msgView.setAdapter(msgList);
-              msgView.smoothScrollToPosition(msgList.getCount() - 1);
-            } catch (JSONException e) {
-              // Oops
-            }
-          }
-*/
+
             }
         });
 

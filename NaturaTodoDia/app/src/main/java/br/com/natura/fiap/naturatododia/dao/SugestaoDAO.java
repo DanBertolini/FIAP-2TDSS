@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,7 @@ public class SugestaoDAO extends SQLiteOpenHelper {
                 Sugestao sugestao = new Sugestao();
                 sugestao.setId(cursor.getInt(0));
                 sugestao.setNome(cursor.getString(2));
+                sugestao.setSalvo(cursor.getInt(3) == 1);
                 listSugest.add(sugestao);;
             }
         }catch(Exception e){
@@ -108,12 +110,13 @@ public class SugestaoDAO extends SQLiteOpenHelper {
 
     public List<Produto> buscarProdutosPorSugestao(int idSugestao){
         List<Produto> prds = new ArrayList<>();
-        String select =  "SELECT P." + CD_PRODUTO + ", P." + NM_PRODUTO + "FROM " + TABLE_SUGESTAO_PRODUTO +
+        String select =  "SELECT P." + CD_PRODUTO + ", P." + NM_PRODUTO + " FROM " + TABLE_SUGESTAO_PRODUTO +
                 " SG INNER JOIN " + TABLE_PRODUTO + " P " +
                 "ON SG." + CD_PRODUTO + " = P." + CD_PRODUTO + " WHERE " + ID + " = " + idSugestao;
-        Cursor cursor = getReadableDatabase().rawQuery(select, null);
-
+        Cursor cursor = null;
         try{
+            cursor = getReadableDatabase().rawQuery(select, null);
+
             while (cursor.moveToNext()) {
                 Produto prod = new Produto();
                 prod.setId(cursor.getInt(0));
@@ -138,5 +141,75 @@ public class SugestaoDAO extends SQLiteOpenHelper {
 
         getWritableDatabase().execSQL(salva);
     }
+
+    public void createMock(SQLiteDatabase db){
+        try{
+            int codEvento = 0;
+            String select =  "SELECT " + CD_EVENTO + " FROM " + TABLE_EVENTO;
+            Cursor cursor = db.rawQuery(select, null);
+            try{
+
+                if (cursor.moveToNext()){
+                    codEvento = cursor.getInt(0);
+                }
+
+            }catch(Exception e){
+            }
+            finally{
+                cursor.close();
+            }
+
+            String insert = "INSERT INTO  " + TABLE_SUGESTAO + " ("
+                    + CD_EVENTO + ","
+                    + NM_SUGESTAO + ","
+                    + IS_SALVO + ") VALUES ("
+                    +  codEvento + ","
+                    + "'Sugestão 1',"
+                    + 0 + ")";
+
+            db.execSQL(insert);
+        }catch (Exception e){
+            Log.e("ERRO", e.getMessage());
+        }
+    }
+
+
+    public void createMock2(SQLiteDatabase db){
+        try{
+            int codSugestao = 0;
+            String select =  "SELECT " + ID + " FROM " + TABLE_SUGESTAO;
+            Cursor cursor = db.rawQuery(select, null);
+            try{
+
+                if (cursor.moveToNext()){
+                    codSugestao = cursor.getInt(0);
+                }
+
+            }catch(Exception e){
+            }
+            finally{
+                cursor.close();
+            }
+
+            String insert = "INSERT INTO  " + TABLE_SUGESTAO_PRODUTO + " ("
+                    + ID + ","
+                    + CD_PRODUTO + ") VALUES ("
+                    +  codSugestao + ","
+                    + 6 + ")";
+
+            db.execSQL(insert);
+
+            insert = "INSERT INTO  " + TABLE_SUGESTAO_PRODUTO + " ("
+                    + ID + ","
+                    + CD_PRODUTO + ") VALUES ("
+                    +  codSugestao + ","
+                    + 14 + ")";
+
+            db.execSQL(insert);
+        }catch (Exception e){
+            Log.e("ERRO", e.getMessage());
+        }
+    }
+
 
 }
